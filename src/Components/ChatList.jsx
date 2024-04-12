@@ -7,7 +7,7 @@ function ChatList({ user, setUpdate }) {
   return (
     <div className="chatlistContainer">
       <UserInfo user={user} setUpdate={setUpdate} />
-      <List />
+      <List user={user}/>
     </div>
   );
 }

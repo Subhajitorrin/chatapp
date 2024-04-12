@@ -15,7 +15,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
 
-function List() {
+function List({user}) {
   const [toggle, setToggle] = useState(true);
   const [findUser, setFindUser] = useState("");
   const [fondUsersList, setFindUsersList] = useState([]);
@@ -94,6 +94,8 @@ function List() {
                   key={index}
                   image={item.avatarUrl}
                   name={item.username}
+                  id={item.id}
+                  currUser={user}
                 />
               );
             })}
