@@ -4,10 +4,10 @@ import ChatList from '../Components/ChatList'
 import Chat from '../Components/Chat'
 import Details from "../Components/Details"
 
-function Home({user}) {
+function Home({user,setUpdate}) {
   return (
     <div className="homeContainer">
-        <ChatList user={user}/>
+        <ChatList user={user} setUpdate={setUpdate}/>
         <Chat/>
         <Details/>
     </div>

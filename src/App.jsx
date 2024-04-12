@@ -10,6 +10,7 @@ import getUserDetailsWithId from "./Firebase/getUserDetailsWithId";
 function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState(null);
+  const [update,setUpdate] = useState(false);
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -23,11 +24,11 @@ function App() {
       }
     });
     return () => unsub();
-  }, []);
+  }, [update]);
   return (
     <div className="container">
       <div className="wrapper">
-        {isLogged ? <Home user={user}/> : <LoginRegister />}
+        {isLogged ? <Home user={user} setUpdate={setUpdate}/> : <LoginRegister />}
         <Notification />
       </div>
     </div>
