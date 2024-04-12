@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./LoginRegister.css";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth, db } from "../Firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
@@ -12,7 +15,6 @@ function LoginRegister() {
     url: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const createBtnRef = useRef(null);
   const avatarRef = useRef(null);
   function handelAvatar(e) {
     const file = e.target.files[0];
@@ -31,7 +33,7 @@ function LoginRegister() {
     const username = e.target.username.value.trim();
     const email = e.target.email.value.trim();
     const password = e.target.registerpassword.value.trim();
-    if (avatar && username && email && password) {
+    if (avatar.file != null && username && email && password) {
       setIsLoading(true);
       const avatarLink = await uploadImageToFirebaseAndGetURL(avatar.file);
       try {
@@ -56,6 +58,10 @@ function LoginRegister() {
         e.target.registerpassword.value = "";
         avatarRef.current.src =
           "https://as1.ftcdn.net/v2/jpg/02/59/39/46/1000_F_259394679_GGA8JJAEkukYJL9XXFH2JoC3nMguBPNH.jpg";
+        setAvatar({
+          file: null,
+          url: "",
+        });
       } catch (err) {
         toast.warn("Email is already used");
       }
@@ -64,23 +70,30 @@ function LoginRegister() {
     }
   }
 
-  useEffect(() => {
-    if (isLoading) {
-      createBtnRef.current.disabled = true;
-      createBtnRef.current.innerHTML = "Loading...";
-      createBtnRef.current.style.backgroundColor = "#b8778c";
+  async function handelLogin(e) {
+    e.preventDefault();
+    const email = e.target.email.value.trim();
+    const password = e.target.password.value.trim();
+    if (email && password) {
+      setIsLoading(true);
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        toast.success("Login succesfull");
+      } catch (err) {
+        toast.warn("Something went wrong!");
+      } finally {
+        setIsLoading(false);
+      }
     } else {
-      createBtnRef.current.disabled = false;
-      createBtnRef.current.innerHTML = "Create an account";
-      createBtnRef.current.style.backgroundColor = "#AC335C";
+      toast.warn("Fill the fields!");
     }
-  }, [isLoading]);
+  }
 
   return (
     <div className="login-register-container">
       <div className="item">
         <h2>Login Here</h2>
-        <form action="">
+        <form onSubmit={handelLogin}>
           <input
             type="email"
             name="email"
@@ -93,7 +106,12 @@ function LoginRegister() {
             id="password"
             placeholder="Enter your password"
           />
-          <button>Sign in</button>
+          <button
+            disabled={isLoading}
+            style={{ backgroundColor: `${isLoading ? "#b8778c" : "#AC335C"}` }}
+          >
+            {isLoading ? "Loading..." : "Sign in"}
+          </button>
         </form>
       </div>
       <div className="seperator"></div>
@@ -137,7 +155,11 @@ function LoginRegister() {
             id="registerpassword"
             placeholder="Enter your password"
           />
-          <button ref={createBtnRef}>Create an account</button>
+          <button
+            style={{ backgroundColor: `${isLoading ? "#b8778c" : "#AC335C"}` }}
+          >
+            {isLoading ? "Loading..." : "Create an account"}
+          </button>
         </form>
       </div>
     </div>
