@@ -35,6 +35,7 @@
 }
 .editContainer{
   position: relative;
+  z-index: 111;
 }
 .editProfileContainer{
   position: absolute;

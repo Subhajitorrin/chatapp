@@ -55,3 +55,76 @@
 .listofusers::-webkit-scrollbar {
   width: 5px; /* Adjusted width of the scrollbar */
 }
+.plusMinus{
+  /* border: 1px solid white; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 100;
+}
+.addUserContainer{
+  
+  width: 345px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  background-color: #141A28;
+  border: 1px solid white;
+  padding: 20px;
+  border-radius: 10px;
+  top: 40px;
+  right: 0;
+}
+.addUserContainer input{
+  width: 90%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
+}
+.addUserContainer button{
+  width: 100%;
+  padding: 7px;
+  cursor: pointer;
+  border: none;
+  border-radius: 7px;
+  background-color: #A73058;
+  color: white;
+}
+.userimgcontainer{
+  height: 40px;
+  width: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+.userimgcontainer img{
+  height: 100%;
+  object-fit: cover;
+}
+.addUserContainer .user{
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  /* border: 1px solid white; */
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(70, 70, 70, .7);
+}
+.user button{
+  width: 15%;
+  border-radius: 5px;
+}
+.searchImgAndusernameContainer{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.addUserActive{
+  display: none;
+}

@@ -1,15 +1,15 @@
-import React from 'react'
-import "./ChatList.css"
-import UserInfo from "./UserInfo"
-import List from "./List"
+import React from "react";
+import "./ChatList.css";
+import UserInfo from "./UserInfo";
+import List from "./List";
 
-function ChatList({user,setUpdate}) {
+function ChatList({ user, setUpdate }) {
   return (
     <div className="chatlistContainer">
-      <UserInfo user={user} setUpdate={setUpdate}/>
-      <List/>
+      <UserInfo user={user} setUpdate={setUpdate} />
+      <List />
     </div>
-  )
+  );
 }
 
-export default ChatList
+export default ChatList;

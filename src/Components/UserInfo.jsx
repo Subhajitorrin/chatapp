@@ -48,7 +48,8 @@ function UserInfo({ user, setUpdate }) {
         await updateDoc(userRef, {
           username: text,
         });
-        setText("")
+        setText("");
+        toast.success("Username updated succesfully");
       }
       if (avatar.file != null) {
         const avatarLink = await uploadImageToFirebaseAndGetURL(avatar.file);
@@ -56,7 +57,7 @@ function UserInfo({ user, setUpdate }) {
         await updateDoc(userRef, {
           avatarUrl: avatarLink,
         });
-        toast.success("Profile update succesful");
+        toast.success("Profile photo updated succesfully");
       }
     } catch (err) {
       console.log(err);
