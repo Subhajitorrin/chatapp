@@ -1,3 +1,82 @@
 .chatContainer{
     flex: 2;
+    border-left: 1px solid rgba(70,70,70,.7);
+    border-right: 1px solid rgba(70,70,70,.7);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.chatTop{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid rgba(70,70,70,.7);
+}
+.chatTop .userInfoImg{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.chatTop .userInfoImg img{
+    height: 100%;
+    object-fit: cover;
+}
+.topUserInfo{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.userInfoText span{
+    font-weight: bold;
+    font-size: 1rem;
+}
+.topUserInfo p{
+    font-size: .9rem;
+
+}
+.topIcons{
+    display: flex;
+    gap: 1.3rem;
+    align-items: center;
+}
+.topReactIcons{
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.chatBottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-top: 1px solid rgba(70,70,70,.7);
+}
+.chatBottom .leftIcons{
+    display: flex;
+    gap: 1rem;
+}
+.chatBottom .rightIcons{
+    display: flex;
+    gap: 1rem;
+}
+.chatBottom input{
+    flex: 1;
+    background-color: transparent;
+    padding-left: 20px;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 1rem;
+}
+.emojieContainer{
+    position: relative;
+    margin-left: 20px;
+}
+.reactEmojieContainer{
+    position: absolute;
+    bottom: 40px;
+}
+.chatCenter{
+    flex: 1;
 }
