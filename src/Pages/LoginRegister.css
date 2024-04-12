@@ -61,6 +61,7 @@
     cursor: pointer;
     background-color: #AC335C;
     color: white;
+    transition: .3s ease-in-out all;
   }
   ::placeholder{
     color: white;
