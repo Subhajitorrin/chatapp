@@ -1,0 +1,5 @@
+.chatlistContainer{
+    flex: 1;
+    /* border: 1px solid white; */
+    height: 100%;
+}

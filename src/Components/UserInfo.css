@@ -1,0 +1,35 @@
+.userinfoContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  /* border: 1px solid white; */
+}
+.user .userImgContainer {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  /* border: 1px solid white; */
+}
+.userImgContainer img {
+  height: 100%;
+  object-fit: cover;
+}
+.user {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.user h2{
+    font-size: 1rem;
+}   
+.userinfoContainer .icons{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.icons .reactIcons{
+    font-size: 1.3rem;
+    cursor: pointer;
+}

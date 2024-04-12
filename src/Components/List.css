@@ -1,0 +1,57 @@
+.search {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  color: white;
+}
+.searchBar {
+  border: 1px solid rgba(255, 255, 255, .3);
+  width: 90%;
+  background-color: rgba(17, 25, 40, 0.5);
+  padding: 7px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.searchBar input{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: white;
+}
+.searchIconn{
+    font-size: 1.3rem;
+    margin-left: 3px;
+}
+.plusIcon{
+    cursor: pointer;
+    font-size: 1.3rem;
+}
+.listContainer{
+  height: 90%;
+  /* border: 1px solid white; */
+}
+.listofusers{
+  height: 90%;
+  overflow-y: auto;
+  border-radius: 20px;
+}
+
+/* For WebKit based browsers */
+.listofusers::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+.listofusers::-webkit-scrollbar-track {
+  background: transparent; /* Color of the track */
+}
+
+.listofusers::-webkit-scrollbar-thumb {
+  background: rgba(17, 25, 40, 0.75); /* Color of the thumb */
+  border-radius: 5px; /* Roundness of the thumb */
+}
+.listofusers::-webkit-scrollbar {
+  width: 5px; /* Adjusted width of the scrollbar */
+}
