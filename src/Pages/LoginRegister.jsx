@@ -38,7 +38,8 @@ function LoginRegister() {
       const avatarLink = await uploadImageToFirebaseAndGetURL(avatar.file);
       try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
-        console.log(res.user.uid);
+        toast.success("Account created succesfully & logged in");
+        // console.log(res.user.uid);
         await setDoc(doc(db, "users", res.user.uid), {
           username,
           email,
@@ -51,25 +52,26 @@ function LoginRegister() {
         await setDoc(doc(db, "userChats", res.user.uid), {
           chats: [],
         });
-        toast.success("Account created succesfully. You can login now");
-        setIsLoading(false);
-        e.target.username.value = "";
-        e.target.email.value = "";
-        e.target.registerpassword.value = "";
-        avatarRef.current.src =
-          "https://as1.ftcdn.net/v2/jpg/02/59/39/46/1000_F_259394679_GGA8JJAEkukYJL9XXFH2JoC3nMguBPNH.jpg";
-        setAvatar({
-          file: null,
-          url: "",
-        });
+        // e.target.username.value = "";
+        // e.target.email.value = "";
+        // e.target.registerpassword.value = "";
+        // avatarRef.current.src =
+        //   "https://as1.ftcdn.net/v2/jpg/02/59/39/46/1000_F_259394679_GGA8JJAEkukYJL9XXFH2JoC3nMguBPNH.jpg";
+        // setAvatar({
+        //   file: null,
+        //   url: "",
+        // });
       } catch (err) {
-        toast.warn("Email is already used");
+        console.log(err);
+      }finally{
+        setIsLoading(false);
       }
     } else {
       toast.warn("Please fill all the fields!");
     }
   }
 
+  // handel login
   async function handelLogin(e) {
     e.preventDefault();
     const email = e.target.email.value.trim();
