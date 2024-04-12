@@ -1,0 +1,68 @@
+.login-register-container {
+  color: white;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid; */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    border: 1px solid rgb(70, 70, 70,.7);
+    padding: 3rem;
+    border-radius: 20px;
+  }
+  .item form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid; */
+    width: 300px;
+  }
+  form input{
+    border: none;
+    outline: none;
+    color: white;
+    background-color: rgba(17,25,40,0.6);
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+  }
+  .uploadContainer{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .uploadContainer img{
+    height: 40px;
+    object-fit: cover;
+  }
+  .imgContainerlogin{
+    /* border: 1px solid red; */
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .seperator{
+    border: 1px solid rgb(70, 70, 70,.6);
+    height: 80%;
+  }
+  button{
+    width: 100%;
+    border-radius: 10px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    background-color: #AC335C;
+    color: white;
+  }
+  ::placeholder{
+    color: white;
+  }
+}
