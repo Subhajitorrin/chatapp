@@ -33,3 +33,54 @@
     font-size: 1.3rem;
     cursor: pointer;
 }
+.editContainer{
+  position: relative;
+}
+.editProfileContainer{
+  position: absolute;
+  user-select: none;
+  background-color: #141A28;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid white;
+  top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+}
+
+.editProfileContainer input{
+  padding: 20px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  padding: none  ;
+  color: white;
+  border-top: 1px solid rgba(70, 70, 70, .7);
+  border-bottom: 1px solid rgba(70, 70, 70, .7);
+}
+.editProfileContainer button{
+  padding: 10px;
+  width: 100%;
+  background-color: #A73058;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.updateImgContainer{
+  height: 160px;
+  width: 160px;
+  overflow: hidden;
+}
+.updateImgContainer img{
+  object-fit: cover;
+  height: 100%;
+}
+.updateActive{
+  display: none;
+}
