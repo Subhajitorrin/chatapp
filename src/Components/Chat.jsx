@@ -9,6 +9,7 @@ import { FaMicrophone } from "react-icons/fa6";
 import { MdOutlineEmojiEmotions } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
 import EmojiPicker from "emoji-picker-react";
+import Message from "./Message"
 
 function Chat() {
   const [toggleEmojie, setToggleEmojie] = useState(false);
@@ -38,7 +39,27 @@ function Chat() {
           <ImInfo className="topReactIcons" />
         </div>
       </div>
-      <div className="chatCenter"></div>
+      <div className="chatCenter">
+        <Message isOwn={true}/>
+        <Message/>
+        <Message isOwn={true}/>
+        <Message/>
+        <Message/>
+        <Message isOwn={true}/>
+        <Message/>
+        <Message isOwn={true}/>
+        <Message/>
+        <Message/>
+        <Message isOwn={true}/>
+        <Message/>
+        <Message isOwn={true}/>
+        <Message isOwn={true}/>
+        <Message/>
+        <Message/>
+        <Message isOwn={true}/>
+        <Message/>
+        <Message/>
+      </div>
       <div className="chatBottom">
         <div className="leftIcons">
           <CiImageOn className="topReactIcons" />

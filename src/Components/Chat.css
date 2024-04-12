@@ -79,4 +79,24 @@
 }
 .chatCenter{
     flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
+.chatCenter::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+  }
+  
+  .chatCenter::-webkit-scrollbar-track {
+    background: transparent; /* Color of the track */
+  }
+  
+  .chatCenter::-webkit-scrollbar-thumb {
+    background: rgba(17, 25, 40, 0.75); /* Color of the thumb */
+    border-radius: 5px; /* Roundness of the thumb */
+  }
+  .chatCenter::-webkit-scrollbar {
+    width: 5px; /* Adjusted width of the scrollbar */
+  }
