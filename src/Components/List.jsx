@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./List.css";
 import { IoMdSearch } from "react-icons/io";
 import { FaPlus } from "react-icons/fa6";
@@ -12,13 +12,16 @@ import {
   getDocs,
   orderBy,
   startAt,
+  onSnapshot,
+  doc,
 } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
 
-function List({user}) {
+function List({ user }) {
   const [toggle, setToggle] = useState(true);
   const [findUser, setFindUser] = useState("");
-  const [fondUsersList, setFindUsersList] = useState([]);
+  const [findUsersList, setFindUsersList] = useState([]);
+  const [sideChatList, setSideChatList] = useState([]);
   const addUserRef = useRef(null);
   function handelFindUser() {
     if (addUserRef.current.classList.contains("addUserActive")) {
@@ -45,6 +48,19 @@ function List({user}) {
       }
     }
   }
+
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, "userChats", user.id), (doc) => {
+      // console.log(doc.data());
+      setSideChatList(doc.data().chats);
+    });
+    return () => {
+      unsub();
+    };
+  }, []);
+
+  // console.log("side chats ", sideChatList);
+
   return (
     <div className="listContainer">
       <div className="search">
@@ -88,7 +104,8 @@ function List({user}) {
             />
             <button onClick={handelUserSearch}>Search</button>
             {/* <FindUserCard /> */}
-            {fondUsersList.map((item, index) => {
+            {findUsersList.map((item, index) => {
+              // console.log(item);
               return (
                 <FindUserCard
                   key={index}
@@ -103,25 +120,17 @@ function List({user}) {
         </div>
       </div>
       <div className="listofusers">
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
-        <ChatListCard />
+        {/* <ChatListCard /> */}
+        {sideChatList.map((item, index) => {
+          // console.log(item);
+          return (
+            <ChatListCard
+              key={index}
+              receiverId={item.receiverId}
+              lastMessage={item.lastMessage}
+            />
+          );
+        })}
       </div>
     </div>
   );

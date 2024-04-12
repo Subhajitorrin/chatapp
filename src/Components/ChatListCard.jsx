@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ChatListCard.css";
+import getUserDetailsWithId from "../Firebase/getUserDetailsWithId";
 
-function ChatListCard() {
+function ChatListCard({ receiverId, lastMessage }) {
+  const [reUser, setReUser] = useState([]);
+  useEffect(() => {
+    getUserDetailsWithId(receiverId).then((res) => {
+      setReUser(res);
+    });
+  }, []);
+  // console.log(reUser);
   return (
     <div className="ChatListCardContainer">
       <div className="itemImgContainer">
-        <img
-          src="https://pics.craiyon.com/2023-09-18/61b305a522014300b6699216384f8b51.webp"
-          alt=""
-        />
+        <img src={reUser.avatarUrl} alt="" />
       </div>
       <div className="text">
-        <span>Subhajit Ghosh</span>
+        <span>{reUser.username}</span>
         <p>This is last message</p>
       </div>
     </div>

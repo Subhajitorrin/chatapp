@@ -41,7 +41,7 @@ function FindUserCard({ image, name, id, currUser }) {
     <div className="user">
       <div className="searchImgAndusernameContainer">
         <div className="userimgcontainer">
-          <img src={image} alt="" />
+          <img src={image?image:""} alt="" />
         </div>
         <h4>{name}</h4>
       </div>
