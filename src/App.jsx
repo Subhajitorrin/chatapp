@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="container">
       <div className="wrapper">
-        {isLogged ? <Home /> : <LoginRegister />}
+        {isLogged ? <Home user={user}/> : <LoginRegister />}
         <Notification />
       </div>
     </div>

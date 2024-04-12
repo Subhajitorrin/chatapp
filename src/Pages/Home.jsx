@@ -4,10 +4,10 @@ import ChatList from '../Components/ChatList'
 import Chat from '../Components/Chat'
 import Details from "../Components/Details"
 
-function Home() {
+function Home({user}) {
   return (
     <div className="homeContainer">
-        <ChatList/>
+        <ChatList user={user}/>
         <Chat/>
         <Details/>
     </div>

@@ -3,22 +3,24 @@ import "./UserInfo.css";
 import { IoIosVideocam } from "react-icons/io";
 import { IoIosCall } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
-function UserInfo() {
+function UserInfo({ user }) {
   return (
     <div className="userinfoContainer">
       <div className="user">
         <div className="userImgContainer">
           <img
-            src="https://imgs.search.brave.com/7_EAqhx1XD9bh2yoP5E6bUMY_qGTy3qHa8QY9nzAt5c/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL00v/TVY1QlptTXpZMlkw/WlRNdE5HVXdNUzAw/WldRekxUa3hZekl0/T0dSaVpqWmpOakJt/TVRsa1hrRXlYa0Zx/Y0dkZVFYVnlOelUx/TnpFM05UZ0AuanBn"
+            src={user ? user.avatarUrl : <Skeleton width={40} height={40} circle={true}/>}
             alt=""
           />
         </div>
-        <h2>Subhajit Ghosh</h2>
+        <h2>{user ? user.username : <Skeleton width={170} height={5} />}</h2>
       </div>
       <div className="icons">
-        <IoIosVideocam  className="reactIcons"/>
-        <IoIosCall  className="reactIcons"/>
+        <IoIosVideocam className="reactIcons" />
+        <IoIosCall className="reactIcons" />
         <FaRegEdit className="reactIcons" />
       </div>
     </div>

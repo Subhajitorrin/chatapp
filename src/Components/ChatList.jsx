@@ -3,10 +3,10 @@ import "./ChatList.css"
 import UserInfo from "./UserInfo"
 import List from "./List"
 
-function ChatList() {
+function ChatList({user}) {
   return (
     <div className="chatlistContainer">
-      <UserInfo/>
+      <UserInfo user={user}/>
       <List/>
     </div>
   )
