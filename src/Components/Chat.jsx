@@ -20,6 +20,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
+import { Timestamp } from "firebase/firestore";
 
 function Chat({ currentChatWith, currentChatId, user }) {
   const [toggleEmojie, setToggleEmojie] = useState(false);
@@ -43,7 +44,7 @@ function Chat({ currentChatWith, currentChatId, user }) {
       const msg = {
         senderId: user.id,
         text: text,
-        createdAt: Date.now(),
+        createdAt: Timestamp.now(),
       };
       try {
         await updateDoc(doc(db, "chats", currentChatId), {

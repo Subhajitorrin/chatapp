@@ -2,19 +2,25 @@ import React, { useEffect, useState } from "react";
 import "./Message.css";
 
 function Message({ isOwn, createdAt, text, senderId }) {
-  const calculateTimeDifference = (createdAt) => {
+  // Function to calculate time difference
+  const calculateTimeDifference = (firebaseTime) => {
+    if (!firebaseTime) return "Just now"; // Return empty string if firebaseTime is undefined or null
+    
+    // Convert Firebase timestamp to JavaScript Date object
+    const messageTime = new Date(firebaseTime.seconds * 1000);
     const currentTime = new Date();
-    const messageTime = new Date(createdAt);
+    
+    // Calculate difference in milliseconds
     const difference = currentTime - messageTime;
-  
+
     const seconds = Math.floor(difference / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
     const months = Math.floor(days / 30);
     const years = Math.floor(months / 12);
-  
-    if (minutes === 0) {
+
+    if (seconds < 60) {
       return "Just now";
     } else if (years > 0) {
       return `${years} year${years > 1 ? "s" : ""} ago`;
@@ -30,17 +36,20 @@ function Message({ isOwn, createdAt, text, senderId }) {
       return `${seconds} sec${seconds > 1 ? "s" : ""} ago`;
     }
   };
-  
 
+  // State for time difference
   const [timeDifference, setTimeDifference] = useState(
     calculateTimeDifference(createdAt)
   );
+
+  // Effect to update time difference every minute
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTimeDifference(calculateTimeDifference(createdAt));
     }, 60000); // Update every minute (60 seconds * 1000 milliseconds)
 
-    return () => clearInterval(intervalId); // Cleanup interval on unmount
+    // Clean up interval
+    return () => clearInterval(intervalId);
   }, [createdAt]);
 
   return (
