@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./ChatListCard.css";
 import getUserDetailsWithId from "../Firebase/getUserDetailsWithId";
 
-function ChatListCard({ receiverId, lastMessage, setCurrentChatWith }) {
+function ChatListCard({
+  receiverId,
+  lastMessage,
+  setCurrentChatWith,
+  chatId,
+  setCurrentChatId,
+}) {
   const [reUser, setReUser] = useState([]);
   useEffect(() => {
     getUserDetailsWithId(receiverId).then((res) => {
@@ -11,7 +17,8 @@ function ChatListCard({ receiverId, lastMessage, setCurrentChatWith }) {
   }, []);
   function handelChat() {
     setCurrentChatWith(receiverId);
-    // console.log(receiverId);
+    setCurrentChatId(chatId);
+    console.log("chatting with ",receiverId," and chat ID is ",chatId);
   }
   // console.log(reUser);
   return (

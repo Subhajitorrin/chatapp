@@ -32,7 +32,7 @@ function FindUserCard({ image, name, id, currUser }) {
           receiverId: id,
         }),
       });
-      console.log(newChatRef.id);
+      // console.log(newChatRef.id);
     } catch (err) {
       console.log(err);
     }
