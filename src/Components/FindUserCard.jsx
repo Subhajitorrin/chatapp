@@ -5,16 +5,44 @@ import {
   doc,
   setDoc,
   updateDoc,
+  getDocs,
 } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
+import { toast } from "react-toastify";
 
 function FindUserCard({ image, name, id, currUser }) {
+  async function checkIfAlreadyChatListIsPresent() {
+    try {
+      const chatsCollectionRef = collection(db, "chats");
+      const querySnapshot = await getDocs(chatsCollectionRef);
+      const isPresent = querySnapshot.docs.find((doc) => {
+        const user1 = doc.data().user1;
+        const user2 = doc.data().user2;
+        return (
+          (id === user1 && currUser.id === user2) ||
+          (id === user2 && currUser.id === user1)
+        );
+      });
+      if (isPresent) {
+        toast.warn("User is already present");
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   async function handelAddUserToChatList() {
+    const isPresent = await checkIfAlreadyChatListIsPresent();
+    if (isPresent) return;
     const chatRef = collection(db, "chats");
     const userChatsRef = collection(db, "userChats");
     try {
       const newChatRef = doc(chatRef);
       await setDoc(newChatRef, {
+        user1: currUser.id,
+        user2: id,
         createdAt: new Date(),
         messages: [],
       });
@@ -41,7 +69,7 @@ function FindUserCard({ image, name, id, currUser }) {
     <div className="user">
       <div className="searchImgAndusernameContainer">
         <div className="userimgcontainer">
-          <img src={image?image:""} alt="" />
+          <img src={image ? image : ""} alt="" />
         </div>
         <h4>{name}</h4>
       </div>
