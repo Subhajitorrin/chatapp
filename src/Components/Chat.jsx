@@ -11,11 +11,21 @@ import { IoMdSend } from "react-icons/io";
 import EmojiPicker from "emoji-picker-react";
 import Message from "./Message";
 import getUserDetailsWithId from "../Firebase/getUserDetailsWithId";
+import {
+  doc,
+  getDoc,
+  collection,
+  updateDoc,
+  arrayUnion,
+  onSnapshot,
+} from "firebase/firestore";
+import { db } from "../Firebase/firebase";
 
-function Chat({ currentChatWith }) {
+function Chat({ currentChatWith, currentChatId, user }) {
   const [toggleEmojie, setToggleEmojie] = useState(false);
   const [text, setText] = useState("");
   const [chatWithUser, setChatWithUser] = useState([]);
+  const [chat, setChat] = useState([]);
   function handelEmojie(e) {
     console.log(text);
     setText(text + e.emoji);
@@ -27,6 +37,40 @@ function Chat({ currentChatWith }) {
       });
     }
   }, [currentChatWith]);
+
+  async function handelSendText() {
+    if (text.trim() != "") {
+      const msg = {
+        senderId: user.id,
+        text: text,
+        createdAt: Date.now(),
+      };
+      try {
+        await updateDoc(doc(db, "chats", currentChatId), {
+          messages: arrayUnion(msg),
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (currentChatId) {
+      const chatRef = doc(db, "chats", currentChatId);
+      const unsubscribe = onSnapshot(chatRef, (doc) => {
+        if (doc.exists()) {
+          setChat(doc.data());
+        } else {
+          console.log("Chat document does not exist.");
+        }
+      });
+  
+      return () => unsubscribe();
+    }
+  }, [currentChatId]);
+  
+  console.log(chat);
   return (
     <div className="chatContainer">
       <div className="chatTop">
@@ -97,7 +141,7 @@ function Chat({ currentChatWith }) {
               )}
             </div>
           </div>
-          <IoMdSend className="topReactIcons" />
+          <IoMdSend className="topReactIcons" onClick={handelSendText} />
         </div>
       </div>
     </div>

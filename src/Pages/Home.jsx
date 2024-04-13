@@ -15,7 +15,7 @@ function Home({ user, setUpdate }) {
         setCurrentChatWith={setCurrentChatWith}
         setCurrentChatId={setCurrentChatId}
       />
-      <Chat currentChatWith={currentChatWith} />
+      <Chat currentChatWith={currentChatWith} currentChatId={currentChatId} user={user}/>
       <Details />
     </div>
   );
