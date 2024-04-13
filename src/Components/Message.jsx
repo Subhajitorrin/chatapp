@@ -5,20 +5,20 @@ function Message({ isOwn, createdAt, text, senderId }) {
   // Function to calculate time difference
   const calculateTimeDifference = (firebaseTime) => {
     if (!firebaseTime) return "Just now"; // Return empty string if firebaseTime is undefined or null
-    
+
     // Convert Firebase timestamp to JavaScript Date object
     const messageTime = new Date(firebaseTime.seconds * 1000);
     const currentTime = new Date();
-    
+
     // Calculate difference in milliseconds
     const difference = currentTime - messageTime;
 
-    const seconds = Math.floor(difference / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const months = Math.floor(days / 30);
-    const years = Math.floor(months / 12);
+    const seconds = Math.abs(Math.floor(difference / 1000));
+    const minutes = Math.abs(Math.floor(seconds / 60));
+    const hours = Math.abs(Math.floor(minutes / 60));
+    const days = Math.abs(Math.floor(hours / 24));
+    const months = Math.abs(Math.floor(days / 30));
+    const years = Math.abs(Math.floor(months / 12));
 
     if (seconds < 60) {
       return "Just now";

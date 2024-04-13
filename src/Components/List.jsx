@@ -30,6 +30,8 @@ function List({ user, setCurrentChatWith, setCurrentChatId }) {
     } else {
       addUserRef.current.classList.add("addUserActive");
     }
+    setFindUsersList([])
+    setFindUser("")
   }
   async function handelUserSearch() {
     if (findUser.trim() != "") {
