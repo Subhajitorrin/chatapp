@@ -28,10 +28,10 @@
   font-weight: bold;
   font-size: 0.9rem;
 }
-.text p {
+/* .text p {
   font-size: 0.85rem;
   font-weight: bold;
-}
+} */
 .chatListImageNusernameContainer {
   display: flex;
   gap: 10px;
@@ -59,11 +59,16 @@
   gap: 10px;
   /* border: 1px solid white; */
 }
-.notiIcon{
-  font-size: .8rem;
-  color: #c93f6d;
-  margin-top: 4px;
-}
+
 .gulabi{
-  background-color: #c93f6d;
+  background-color: #c93f6d81;
+  transition: .3s ease-in-out all;
+}
+.username p{
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+.lasttext{
+  font-size: .75rem;
+  margin-top: 3px;
 }

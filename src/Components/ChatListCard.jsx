@@ -143,18 +143,14 @@ function ChatListCard({
         <div className="text">
           <div className="username">
             <p>{reUser.username}</p>
-            {/* <FaCircle
-              className="notiIcon"
-              style={{ opacity: isSeen ? 0 : 1 }}
-            /> */}
           </div>
           {lsatMsg.lastSender != "" ? (
             lsatMsg.lastSender === user.id ? (
-              <p>
+              <p className="lasttext">
                 <span className="you">You: </span> {lsatMsg.lastText}
               </p>
             ) : (
-              <p>{lsatMsg.lastText}</p>
+              <p className="lasttext">{lsatMsg.lastText}</p>
             )
           ) : (
             <span></span>
