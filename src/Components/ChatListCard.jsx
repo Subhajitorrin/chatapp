@@ -19,6 +19,7 @@ function ChatListCard({
   isSeen,
   setCurrentChatId,
   user,
+  currentChatId,
 }) {
   const [reUser, setReUser] = useState([]);
   const [lsatMsg, setLastMsg] = useState({
@@ -26,15 +27,29 @@ function ChatListCard({
     lastText: "",
   });
   const crossRef = useRef(null);
+  const sideUserRef = useRef(null);
   useEffect(() => {
     getUserDetailsWithId(receiverId).then((res) => {
       setReUser(res);
     });
   }, []);
-  function handelChat() {
+  async function handelChat() {
     setCurrentChatWith(receiverId);
     setCurrentChatId(chatId);
-    // console.log("chatting with ",receiverId," and chat ID is ",chatId);
+    // update notification after clicking sidechat
+    const userChatsRef = doc(db, "userChats", user.id);
+    const userChatsSnapshot = await getDoc(userChatsRef);
+    if (userChatsSnapshot.exists()) {
+      const userChatsData = userChatsSnapshot.data();
+      const chatIndex = userChatsData.chats.findIndex((ch) => {
+        return ch.chatId === chatId;
+      });
+      userChatsData.chats[chatIndex].isSeen = true;
+      userChatsData.chats[chatIndex].updatedAt = Date.now();
+      await updateDoc(userChatsRef, {
+        chats: userChatsData.chats,
+      });
+    }
   }
   async function handelRemoveChatList() {
     // console.log(crossRef.current);
@@ -79,8 +94,48 @@ function ChatListCard({
     };
   }, [chatId]);
 
+  async function makeChatSeen() {
+    const userChatsRef = doc(db, "userChats", user.id);
+    const userChatsSnapshot = await getDoc(userChatsRef);
+    if (userChatsSnapshot.exists()) {
+      const userChatsData = userChatsSnapshot.data();
+      const chatIndex = userChatsData.chats.findIndex((ch) => {
+        return ch.chatId === chatId;
+      });
+      userChatsData.chats[chatIndex].isSeen = true;
+      userChatsData.chats[chatIndex].updatedAt = Date.now();
+      await updateDoc(userChatsRef, {
+        chats: userChatsData.chats,
+      });
+    }
+  }
+  useEffect(() => {
+    if (!currentChatId) {
+      if (!isSeen) {
+        sideUserRef.current.classList.add("gulabi");
+      } else {
+        sideUserRef.current.classList.remove("gulabi");
+      }
+    } else {
+      if (currentChatId === chatId) {
+        sideUserRef.current.classList.remove("gulabi");
+        makeChatSeen();
+      } else {
+        if (!isSeen) {
+          sideUserRef.current.classList.add("gulabi");
+        }else{
+          sideUserRef.current.classList.remove("gulabi");
+        }
+      }
+    }
+  }, [currentChatId, isSeen]);
+
   return (
-    <div className="ChatListCardContainer" onClick={handelChat}>
+    <div
+      className="ChatListCardContainer "
+      onClick={handelChat}
+      ref={sideUserRef}
+    >
       <div className="chatListImageNusernameContainer">
         <div className="itemImgContainer">
           <img src={reUser.avatarUrl} alt="" />
@@ -88,10 +143,10 @@ function ChatListCard({
         <div className="text">
           <div className="username">
             <p>{reUser.username}</p>
-            <FaCircle
+            {/* <FaCircle
               className="notiIcon"
               style={{ opacity: isSeen ? 0 : 1 }}
-            />
+            /> */}
           </div>
           {lsatMsg.lastSender != "" ? (
             lsatMsg.lastSender === user.id ? (

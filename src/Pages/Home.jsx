@@ -14,6 +14,7 @@ function Home({ user, setUpdate }) {
         setUpdate={setUpdate}
         setCurrentChatWith={setCurrentChatWith}
         setCurrentChatId={setCurrentChatId}
+        currentChatId={currentChatId}
       />
       <Chat
         currentChatWith={currentChatWith}

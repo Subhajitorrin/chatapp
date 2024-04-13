@@ -18,7 +18,7 @@ import {
 import { db } from "../Firebase/firebase";
 import { toast } from "react-toastify";
 
-function List({ user, setCurrentChatWith, setCurrentChatId }) {
+function List({ user, setCurrentChatWith, setCurrentChatId,currentChatId }) {
   const [toggle, setToggle] = useState(true);
   const [findUser, setFindUser] = useState("");
   const [findUsersList, setFindUsersList] = useState([]);
@@ -144,6 +144,7 @@ function List({ user, setCurrentChatWith, setCurrentChatId }) {
               isSeen={item.isSeen ? item.isSeen : ""}
               setCurrentChatId={setCurrentChatId}
               user={user}
+              currentChatId={currentChatId}
             />
           );
         })}
