@@ -8,6 +8,7 @@ function ChatListCard({
   setCurrentChatWith,
   chatId,
   setCurrentChatId,
+  setToggleNewChat
 }) {
   const [reUser, setReUser] = useState([]);
   useEffect(() => {
@@ -18,7 +19,8 @@ function ChatListCard({
   function handelChat() {
     setCurrentChatWith(receiverId);
     setCurrentChatId(chatId);
-    console.log("chatting with ",receiverId," and chat ID is ",chatId);
+    setToggleNewChat(prev=> !prev)
+    // console.log("chatting with ",receiverId," and chat ID is ",chatId);
   }
   // console.log(reUser);
   return (

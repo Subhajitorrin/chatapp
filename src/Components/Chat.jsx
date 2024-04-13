@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Chat.css";
 import { IoIosCall } from "react-icons/io";
 import { IoIosVideocam } from "react-icons/io";
@@ -22,11 +22,13 @@ import {
 import { db } from "../Firebase/firebase";
 import { Timestamp } from "firebase/firestore";
 
-function Chat({ currentChatWith, currentChatId, user }) {
+function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
   const [toggleEmojie, setToggleEmojie] = useState(false);
   const [text, setText] = useState("");
   const [chatWithUser, setChatWithUser] = useState([]);
   const [chat, setChat] = useState([]);
+  const chatCenterRef = useRef(null);
+
   function handelEmojie(e) {
     console.log(text);
     setText(text + e.emoji);
@@ -41,6 +43,7 @@ function Chat({ currentChatWith, currentChatId, user }) {
 
   async function handelSendText() {
     if (text.trim() != "") {
+      setText("");
       const msg = {
         senderId: user.id,
         text: text,
@@ -50,10 +53,16 @@ function Chat({ currentChatWith, currentChatId, user }) {
         await updateDoc(doc(db, "chats", currentChatId), {
           messages: arrayUnion(msg),
         });
-        setText("")
       } catch (err) {
         console.log(err);
       }
+    }
+  }
+
+  function hadelEnter(e) {
+    console.log(e.key);
+    if (e.key == "Enter") {
+      handelSendText();
     }
   }
 
@@ -63,6 +72,9 @@ function Chat({ currentChatWith, currentChatId, user }) {
       const unsubscribe = onSnapshot(chatRef, (doc) => {
         if (doc.exists()) {
           setChat(doc.data().messages);
+          setTimeout(() => {
+            chatCenterRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+          }, 100);
         } else {
           console.log("Chat document does not exist.");
         }
@@ -80,7 +92,7 @@ function Chat({ currentChatWith, currentChatId, user }) {
     }
   }
 
-  console.log(chat);
+  // console.log(chat);
   return (
     <div className="chatContainer">
       <div className="chatTop">
@@ -114,6 +126,7 @@ function Chat({ currentChatWith, currentChatId, user }) {
             />
           );
         })}
+        <div ref={chatCenterRef}></div>
       </div>
       <div className="chatBottom">
         <div className="leftIcons">
@@ -128,6 +141,7 @@ function Chat({ currentChatWith, currentChatId, user }) {
             setText(e.target.value);
           }}
           value={text}
+          onKeyDown={hadelEnter}
         />
         <div className="rightIcons">
           <div className="emojieContainer">

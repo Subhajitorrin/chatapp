@@ -55,7 +55,9 @@ function Message({ isOwn, createdAt, text, senderId }) {
   return (
     <div className={`messageContainer ${isOwn ? "own" : ""}`}>
       <div className="msgtexts">
-        <p>{text}</p>
+        <div className="pContainer">
+          <p>{text}</p>
+        </div>
         <span>{timeDifference}</span>
       </div>
     </div>
