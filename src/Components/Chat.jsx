@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Chat.css";
 import { IoIosCall } from "react-icons/io";
 import { IoIosVideocam } from "react-icons/io";
@@ -10,26 +10,35 @@ import { MdOutlineEmojiEmotions } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
 import EmojiPicker from "emoji-picker-react";
 import Message from "./Message"
+import getUserDetailsWithId from "../Firebase/getUserDetailsWithId";
 
-function Chat() {
+function Chat({currentChatWith}) {
   const [toggleEmojie, setToggleEmojie] = useState(false);
   const [text, setText] = useState("");
+  const [chatWithUser,setChatWithUser]=useState([])
   function handelEmojie(e) {
     console.log(text);
     setText(text + e.emoji);
   }
+  useEffect(()=>{
+    if(currentChatWith){
+      getUserDetailsWithId(currentChatWith).then((res)=>{
+        setChatWithUser(res)
+      })
+    }
+  },[currentChatWith])
   return (
     <div className="chatContainer">
       <div className="chatTop">
         <div className="topUserInfo">
           <div className="userInfoImg">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3twOSZJs7lNZa0V0sU3xOWz_zMUVn7k-bXMzYnfrJJw&s"
+              src={chatWithUser.avatarUrl}
               alt=""
             />
           </div>
           <div className="userInfoText">
-            <span>Subhajit Ghosh</span>
+            <span>{chatWithUser.username}</span>
             <p>Lorem ipsum dolor sit amet.</p>
           </div>
         </div>

@@ -17,7 +17,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
 
-function List({ user }) {
+function List({ user,setCurrentChatWith }) {
   const [toggle, setToggle] = useState(true);
   const [findUser, setFindUser] = useState("");
   const [findUsersList, setFindUsersList] = useState([]);
@@ -128,6 +128,7 @@ function List({ user }) {
               key={index}
               receiverId={item.receiverId}
               lastMessage={item.lastMessage}
+              setCurrentChatWith={setCurrentChatWith}
             />
           );
         })}

@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./Home.css"
 import ChatList from '../Components/ChatList'
 import Chat from '../Components/Chat'
 import Details from "../Components/Details"
 
 function Home({user,setUpdate}) {
+  const [currentChatWith,setCurrentChatWith]=useState(null);
   return (
     <div className="homeContainer">
-        <ChatList user={user} setUpdate={setUpdate}/>
-        <Chat/>
+        <ChatList user={user} setUpdate={setUpdate} setCurrentChatWith={setCurrentChatWith}/>
+        <Chat currentChatWith={currentChatWith}/>
         <Details/>
     </div>
   )
