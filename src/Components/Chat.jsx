@@ -42,7 +42,7 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
   }, [currentChatWith]);
 
   async function handelSendText() {
-    if (text.trim() != "") {
+    if (text.trim() !== "") {
       setText("");
       const msg = {
         senderId: user.id,
@@ -53,7 +53,23 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
         await updateDoc(doc(db, "chats", currentChatId), {
           messages: arrayUnion(msg),
         });
-        
+
+        const bothUsers = [user.id, currentChatWith];
+        bothUsers.forEach(async (id) => {
+          const userChatsRef = doc(db, "userChats", id);
+          const userChatsSnapshot = await getDoc(userChatsRef);
+          if (userChatsSnapshot.exists()) {
+            const userChatsData = userChatsSnapshot.data();
+            const chatIndex = userChatsData.chats.findIndex((ch) => {
+              return ch.chatId === currentChatId;
+            });
+            userChatsData.chats[chatIndex].isSeen = id === user.id ? true : false;
+            userChatsData.chats[chatIndex].updatedAt = Date.now();
+            await updateDoc(userChatsRef, {
+              chats: userChatsData.chats,
+            });
+          }
+        });
       } catch (err) {
         console.log(err);
       }
@@ -61,7 +77,7 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
   }
 
   function hadelEnter(e) {
-    console.log(e.key);
+    // console.log(e.key);
     if (e.key == "Enter") {
       handelSendText();
     }

@@ -58,7 +58,7 @@ function List({ user, setCurrentChatWith, setCurrentChatId}) {
 
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "userChats", user.id), (doc) => {
-      // console.log(doc.data());
+      console.log(doc.data());
       setSideChatList(doc.data().chats);
     });
     return () => {
