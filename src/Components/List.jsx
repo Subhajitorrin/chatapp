@@ -16,8 +16,9 @@ import {
   doc,
 } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
+import { toast } from "react-toastify";
 
-function List({ user,setCurrentChatWith,setCurrentChatId }) {
+function List({ user, setCurrentChatWith, setCurrentChatId }) {
   const [toggle, setToggle] = useState(true);
   const [findUser, setFindUser] = useState("");
   const [findUsersList, setFindUsersList] = useState([]);
@@ -42,7 +43,11 @@ function List({ user,setCurrentChatWith,setCurrentChatId }) {
         querySnapshot.forEach((doc) => {
           users.push(doc.data());
         });
-        setFindUsersList(users);
+        if (users.length === 0) {
+          toast.warn("No user found!");
+        } else {
+          setFindUsersList(users);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -101,6 +106,7 @@ function List({ user,setCurrentChatWith,setCurrentChatId }) {
               onChange={(e) => {
                 setFindUser(e.target.value);
               }}
+              value={findUser}
             />
             <button onClick={handelUserSearch}>Search</button>
             {/* <FindUserCard /> */}
@@ -113,6 +119,10 @@ function List({ user,setCurrentChatWith,setCurrentChatId }) {
                   name={item.username}
                   id={item.id}
                   currUser={user}
+                  setToggle={setToggle}
+                  handelFindUser={handelFindUser}
+                  setFindUser={setFindUser}
+                  setFindUsersList={setFindUsersList}
                 />
               );
             })}

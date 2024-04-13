@@ -10,7 +10,16 @@ import {
 import { db } from "../Firebase/firebase";
 import { toast } from "react-toastify";
 
-function FindUserCard({ image, name, id, currUser }) {
+function FindUserCard({
+  image,
+  name,
+  id,
+  currUser,
+  setToggle,
+  handelFindUser,
+  setFindUser,
+  setFindUsersList
+}) {
   async function checkIfAlreadyChatListIsPresent() {
     try {
       const chatsCollectionRef = collection(db, "chats");
@@ -36,6 +45,7 @@ function FindUserCard({ image, name, id, currUser }) {
   async function handelAddUserToChatList() {
     const isPresent = await checkIfAlreadyChatListIsPresent();
     if (isPresent) return;
+    toast.success("User added to chat list");
     const chatRef = collection(db, "chats");
     const userChatsRef = collection(db, "userChats");
     try {
@@ -65,6 +75,12 @@ function FindUserCard({ image, name, id, currUser }) {
       console.log(err);
     }
   }
+  function handelFindListClose() {
+    setToggle((prev) => !prev);
+    handelFindUser();
+    setFindUser("");
+    setFindUsersList([])
+  }
   return (
     <div className="user">
       <div className="searchImgAndusernameContainer">
@@ -73,7 +89,14 @@ function FindUserCard({ image, name, id, currUser }) {
         </div>
         <h4>{name}</h4>
       </div>
-      <button onClick={handelAddUserToChatList}>Add</button>
+      <button
+        onClick={() => {
+          handelAddUserToChatList();
+          handelFindListClose();
+        }}
+      >
+        Add
+      </button>
     </div>
   );
 }
