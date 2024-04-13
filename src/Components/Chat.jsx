@@ -60,16 +60,24 @@ function Chat({ currentChatWith, currentChatId, user }) {
       const chatRef = doc(db, "chats", currentChatId);
       const unsubscribe = onSnapshot(chatRef, (doc) => {
         if (doc.exists()) {
-          setChat(doc.data());
+          setChat(doc.data().messages);
         } else {
           console.log("Chat document does not exist.");
         }
       });
-  
+
       return () => unsubscribe();
     }
   }, [currentChatId]);
-  
+
+  function checkOwn(chat) {
+    if (chat.senderId == user.id) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   console.log(chat);
   return (
     <div className="chatContainer">
@@ -90,25 +98,20 @@ function Chat({ currentChatWith, currentChatId, user }) {
         </div>
       </div>
       <div className="chatCenter">
-        <Message isOwn={true} />
-        <Message />
-        <Message isOwn={true} />
-        <Message />
-        <Message />
-        <Message isOwn={true} />
-        <Message />
-        <Message isOwn={true} />
-        <Message />
-        <Message />
-        <Message isOwn={true} />
-        <Message />
-        <Message isOwn={true} />
-        <Message isOwn={true} />
-        <Message />
-        <Message />
-        <Message isOwn={true} />
-        <Message />
-        <Message />
+        {/* <Message isOwn={true} />
+        <Message /> */}
+        {chat.map((item, index) => {
+          return checkOwn(item) ? (
+            <Message key={index} isOwn={true} text={item.text} />
+          ) : (
+            <Message
+              key={index}
+              createdAt={item.createdAt}
+              text={item.text}
+              senderId={item.senderId}
+            />
+          );
+        })}
       </div>
       <div className="chatBottom">
         <div className="leftIcons">
