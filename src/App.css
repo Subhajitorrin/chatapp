@@ -8,6 +8,12 @@ body {
   height: 100vh;
   width: 100%;
 }
+input:-webkit-autofill {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 0px #000 inset;
+  transition: background-color 300s ease-in-out 0s;
+}
+
 .container {
   height: 100vh;
   width: 100%;
@@ -18,9 +24,17 @@ body {
   align-items: center;
   justify-content: center;
 }
-.wrapper {
+.wrapper,
+.loadingWrapper {
   width: 80%;
   height: 90%;
   border-radius: 20px;
   background: rgba(17, 25, 40, 0.75);
+}
+.loadingWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 1.2rem;
 }

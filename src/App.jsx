@@ -11,30 +11,38 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState(null);
   const [update, setUpdate] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
+    setIsLoading(true)
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         getUserDetailsWithId(user.uid).then((res) => {
           setIsLogged(true);
           setUser(res);
-          console.log(res);
+          setIsLoading(false)
+          // console.log(res);
         });
       } else {
         setIsLogged(false);
+        setIsLoading(false)
       }
     });
     return () => unsub();
   }, [update]);
   return (
     <div className="container">
-      <div className="wrapper">
-        {isLogged ? (
-          <Home user={user} setUpdate={setUpdate} />
-        ) : (
-          <LoginRegister />
-        )}
-        <Notification />
-      </div>
+      {isLoading ? (
+        <div className="loadingWrapper"><span>Loading...</span></div>
+      ) : (
+        <div className="wrapper">
+          {isLogged ? (
+            <Home user={user} setUpdate={setUpdate} />
+          ) : (
+            <LoginRegister />
+          )}
+          <Notification />
+        </div>
+      )}
     </div>
   );
 }
