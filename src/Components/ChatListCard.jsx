@@ -2,17 +2,27 @@ import React, { useEffect, useRef, useState } from "react";
 import "./ChatListCard.css";
 import getUserDetailsWithId from "../Firebase/getUserDetailsWithId";
 import { IoRemoveCircle } from "react-icons/io5";
-import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  deleteDoc,
+  doc,
+  getDoc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../Firebase/firebase";
 
 function ChatListCard({
   receiverId,
-  lastMessage,
   setCurrentChatWith,
   chatId,
   setCurrentChatId,
+  user,
 }) {
   const [reUser, setReUser] = useState([]);
+  const [lsatMsg, setLastMsg] = useState({
+    lastSender: "",
+    lastText: "",
+  });
   const crossRef = useRef(null);
   useEffect(() => {
     getUserDetailsWithId(receiverId).then((res) => {
@@ -48,6 +58,25 @@ function ChatListCard({
       console.log(err);
     }
   }
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(doc(db, "chats", chatId), (doc) => {
+      const messages = doc.data().messages;
+      if (messages.length > 0) {
+        const lastMessage = messages[messages.length - 1];
+        const obj = {
+          lastSender: lastMessage.senderId,
+          lastText: lastMessage.text,
+        };
+        setLastMsg(obj);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [chatId]);
+
   return (
     <div className="ChatListCardContainer" onClick={handelChat}>
       <div className="chatListImageNusernameContainer">
@@ -56,7 +85,15 @@ function ChatListCard({
         </div>
         <div className="text">
           <span>{reUser.username}</span>
-          <p>This is last message</p>
+          {lsatMsg.lastSender != "" ? (
+            lsatMsg.lastSender === user.id ? (
+              <p><span className="you">You: </span> {lsatMsg.lastText}</p>
+            ) : (
+              <p>{lsatMsg.lastText}</p>
+            )
+          ) : (
+            <span></span>
+          )}
         </div>
       </div>
       <div ref={crossRef} className="crossContainer">

@@ -3,7 +3,7 @@ import "./ChatList.css";
 import UserInfo from "./UserInfo";
 import List from "./List";
 
-function ChatList({ user, setUpdate, setCurrentChatWith, setCurrentChatId}) {
+function ChatList({ user, setUpdate, setCurrentChatWith, setCurrentChatId }) {
   return (
     <div className="chatlistContainer">
       <UserInfo user={user} setUpdate={setUpdate} />

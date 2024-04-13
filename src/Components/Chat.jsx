@@ -30,7 +30,7 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
   const chatCenterRef = useRef(null);
 
   function handelEmojie(e) {
-    console.log(text);
+    // console.log(text);
     setText(text + e.emoji);
   }
   useEffect(() => {
@@ -53,6 +53,7 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
         await updateDoc(doc(db, "chats", currentChatId), {
           messages: arrayUnion(msg),
         });
+        
       } catch (err) {
         console.log(err);
       }

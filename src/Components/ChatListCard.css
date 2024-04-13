@@ -48,3 +48,7 @@
   opacity: 1;
   transition: 0.3s ease-in-out all;
 }
+.ChatListCardContainer .you{
+  font-size: 0.75rem;
+  font-weight: 100;
+}

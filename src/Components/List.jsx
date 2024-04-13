@@ -143,6 +143,7 @@ function List({ user, setCurrentChatWith, setCurrentChatId}) {
               setCurrentChatWith={setCurrentChatWith}
               chatId={item.chatId}
               setCurrentChatId={setCurrentChatId}
+              user={user}
             />
           );
         })}

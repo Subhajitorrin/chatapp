@@ -18,7 +18,7 @@ function FindUserCard({
   setToggle,
   handelFindUser,
   setFindUser,
-  setFindUsersList
+  setFindUsersList,
 }) {
   async function checkIfAlreadyChatListIsPresent() {
     try {
@@ -59,14 +59,20 @@ function FindUserCard({
       await updateDoc(doc(userChatsRef, id), {
         chats: arrayUnion({
           chatId: newChatRef.id,
-          lastMessage: "",
+          lastMessage: {
+            lastSender: "",
+            lastText: "",
+          },
           receiverId: currUser.id,
         }),
       });
       await updateDoc(doc(userChatsRef, currUser.id), {
         chats: arrayUnion({
           chatId: newChatRef.id,
-          lastMessage: "",
+          lastMessage: {
+            lastSender: "",
+            lastText: "",
+          },
           receiverId: id,
         }),
       });
@@ -79,7 +85,7 @@ function FindUserCard({
     setToggle((prev) => !prev);
     handelFindUser();
     setFindUser("");
-    setFindUsersList([])
+    setFindUsersList([]);
   }
   return (
     <div className="user">
