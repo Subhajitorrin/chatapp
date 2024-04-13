@@ -54,7 +54,7 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
           messages: arrayUnion(msg),
         });
 
-        const bothUsers = [user.id, currentChatWith];
+        const bothUsers = [currentChatWith,user.id];
         bothUsers.forEach(async (id) => {
           const userChatsRef = doc(db, "userChats", id);
           const userChatsSnapshot = await getDoc(userChatsRef);
@@ -63,7 +63,8 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
             const chatIndex = userChatsData.chats.findIndex((ch) => {
               return ch.chatId === currentChatId;
             });
-            userChatsData.chats[chatIndex].isSeen = id === user.id ? true : false;
+            userChatsData.chats[chatIndex].isSeen =
+              id === user.id ? true : false;
             userChatsData.chats[chatIndex].updatedAt = Date.now();
             await updateDoc(userChatsRef, {
               chats: userChatsData.chats,

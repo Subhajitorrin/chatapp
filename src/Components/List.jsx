@@ -18,7 +18,7 @@ import {
 import { db } from "../Firebase/firebase";
 import { toast } from "react-toastify";
 
-function List({ user, setCurrentChatWith, setCurrentChatId}) {
+function List({ user, setCurrentChatWith, setCurrentChatId }) {
   const [toggle, setToggle] = useState(true);
   const [findUser, setFindUser] = useState("");
   const [findUsersList, setFindUsersList] = useState([]);
@@ -30,8 +30,8 @@ function List({ user, setCurrentChatWith, setCurrentChatId}) {
     } else {
       addUserRef.current.classList.add("addUserActive");
     }
-    setFindUsersList([])
-    setFindUser("")
+    setFindUsersList([]);
+    setFindUser("");
   }
   async function handelUserSearch() {
     if (findUser.trim() != "") {
@@ -134,7 +134,6 @@ function List({ user, setCurrentChatWith, setCurrentChatId}) {
       <div className="listofusers">
         {/* <ChatListCard /> */}
         {sideChatList.map((item, index) => {
-          // console.log(item);
           return (
             <ChatListCard
               key={index}
@@ -142,6 +141,7 @@ function List({ user, setCurrentChatWith, setCurrentChatId}) {
               lastMessage={item.lastMessage}
               setCurrentChatWith={setCurrentChatWith}
               chatId={item.chatId}
+              isSeen={item.isSeen ? item.isSeen : ""}
               setCurrentChatId={setCurrentChatId}
               user={user}
             />

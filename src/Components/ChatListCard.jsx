@@ -10,11 +10,13 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
+import { FaCircle } from "react-icons/fa";
 
 function ChatListCard({
   receiverId,
   setCurrentChatWith,
   chatId,
+  isSeen,
   setCurrentChatId,
   user,
 }) {
@@ -84,10 +86,18 @@ function ChatListCard({
           <img src={reUser.avatarUrl} alt="" />
         </div>
         <div className="text">
-          <span>{reUser.username}</span>
+          <div className="username">
+            <p>{reUser.username}</p>
+            <FaCircle
+              className="notiIcon"
+              style={{ opacity: isSeen ? 0 : 1 }}
+            />
+          </div>
           {lsatMsg.lastSender != "" ? (
             lsatMsg.lastSender === user.id ? (
-              <p><span className="you">You: </span> {lsatMsg.lastText}</p>
+              <p>
+                <span className="you">You: </span> {lsatMsg.lastText}
+              </p>
             ) : (
               <p>{lsatMsg.lastText}</p>
             )

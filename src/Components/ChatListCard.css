@@ -29,7 +29,8 @@
   font-size: 0.9rem;
 }
 .text p {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: bold;
 }
 .chatListImageNusernameContainer {
   display: flex;
@@ -51,4 +52,15 @@
 .ChatListCardContainer .you{
   font-size: 0.75rem;
   font-weight: 100;
+}
+.username{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* border: 1px solid white; */
+}
+.notiIcon{
+  font-size: .8rem;
+  color: #c93f6d;
+  margin-top: 4px;
 }
