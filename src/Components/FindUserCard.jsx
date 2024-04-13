@@ -59,10 +59,6 @@ function FindUserCard({
       await updateDoc(doc(userChatsRef, id), {
         chats: arrayUnion({
           chatId: newChatRef.id,
-          lastMessage: {
-            lastSender: "",
-            lastText: "",
-          },
           receiverId: currUser.id,
         }),
       });
