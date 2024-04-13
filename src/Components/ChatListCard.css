@@ -14,14 +14,15 @@
   align-items: center;
   cursor: pointer;
   user-select: none;
-  border-bottom: 1px solid rgba(70, 70, 70, .7);
+  border-bottom: 1px solid rgba(70, 70, 70, 0.7);
   padding: 20px;
   background-color: transparent;
-  transition: .3s ease-in-out all;
+  transition: 0.3s ease-in-out all;
+  justify-content: space-between;
 }
-.ChatListCardContainer:hover{
-  background-color: rgba(0, 0, 0, .2);
-  transition: .3s ease-in-out all;
+.ChatListCardContainer:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: 0.3s ease-in-out all;
 }
 .text span {
   font-weight: bold;
@@ -29,4 +30,21 @@
 }
 .text p {
   font-size: 0.75rem;
+}
+.chatListImageNusernameContainer {
+  display: flex;
+  gap: 10px;
+}
+.crossIcon {
+  font-size: 1.5rem;
+  color: #c93f6d;
+  transition: 0.3s ease-in-out all;
+}
+.crossContainer {
+  opacity: 0;
+  transition: 0.3s ease-in-out all;
+}
+.ChatListCardContainer:hover .crossContainer {
+  opacity: 1;
+  transition: 0.3s ease-in-out all;
 }
