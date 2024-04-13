@@ -50,6 +50,7 @@ function Chat({ currentChatWith, currentChatId, user }) {
         await updateDoc(doc(db, "chats", currentChatId), {
           messages: arrayUnion(msg),
         });
+        setText("")
       } catch (err) {
         console.log(err);
       }
