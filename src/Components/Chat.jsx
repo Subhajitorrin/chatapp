@@ -73,7 +73,10 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
         if (doc.exists()) {
           setChat(doc.data().messages);
           setTimeout(() => {
-            chatCenterRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+            chatCenterRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "end",
+            });
           }, 100);
         } else {
           console.log("Chat document does not exist.");
@@ -93,78 +96,86 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
   }
 
   // console.log(chat);
-  return (
-    <div className="chatContainer">
-      <div className="chatTop">
-        <div className="topUserInfo">
-          <div className="userInfoImg">
-            <img src={chatWithUser.avatarUrl} alt="" />
-          </div>
-          <div className="userInfoText">
-            <span>{chatWithUser.username}</span>
-            <p>Lorem ipsum dolor sit amet.</p>
-          </div>
-        </div>
-        <div className="topIcons">
-          <IoIosCall className="topReactIcons" />
-          <IoIosVideocam className="topReactIcons" />
-          <ImInfo className="topReactIcons" />
-        </div>
-      </div>
-      <div className="chatCenter">
-        {/* <Message isOwn={true} />
-        <Message /> */}
-        {chat.map((item, index) => {
-          return checkOwn(item) ? (
-            <Message key={index} isOwn={true} text={item.text} />
-          ) : (
-            <Message
-              key={index}
-              createdAt={item.createdAt}
-              text={item.text}
-              senderId={item.senderId}
-            />
-          );
-        })}
-        <div ref={chatCenterRef}></div>
-      </div>
-      <div className="chatBottom">
-        <div className="leftIcons">
-          <CiImageOn className="topReactIcons" />
-          <IoCameraOutline className="topReactIcons" />
-          <FaMicrophone className="topReactIcons" />
-        </div>
-        <input
-          type="text"
-          placeholder="Type your text here..."
-          onChange={(e) => {
-            setText(e.target.value);
-          }}
-          value={text}
-          onKeyDown={hadelEnter}
-        />
-        <div className="rightIcons">
-          <div className="emojieContainer">
-            <MdOutlineEmojiEmotions
-              className="topReactIcons emojieIcon"
-              onClick={() => {
-                setToggleEmojie(!toggleEmojie);
-              }}
-            />
-            <div className="reactEmojieContainer">
-              {toggleEmojie && (
-                <EmojiPicker
-                  className="emojieBox"
-                  onEmojiClick={(e) => handelEmojie(e)}
-                />
-              )}
+  if (currentChatId) {
+    return (
+      <div className="chatContainer">
+        <div className="chatTop">
+          <div className="topUserInfo">
+            <div className="userInfoImg">
+              <img src={chatWithUser.avatarUrl} alt="" />
+            </div>
+            <div className="userInfoText">
+              <span>{chatWithUser.username}</span>
+              <p>Lorem ipsum dolor sit amet.</p>
             </div>
           </div>
-          <IoMdSend className="topReactIcons" onClick={handelSendText} />
+          <div className="topIcons">
+            <IoIosCall className="topReactIcons" />
+            <IoIosVideocam className="topReactIcons" />
+            <ImInfo className="topReactIcons" />
+          </div>
+        </div>
+        <div className="chatCenter">
+          {/* <Message isOwn={true} />
+          <Message /> */}
+          {chat.map((item, index) => {
+            return checkOwn(item) ? (
+              <Message key={index} isOwn={true} text={item.text} />
+            ) : (
+              <Message
+                key={index}
+                createdAt={item.createdAt}
+                text={item.text}
+                senderId={item.senderId}
+              />
+            );
+          })}
+          <div ref={chatCenterRef}></div>
+        </div>
+        <div className="chatBottom">
+          <div className="leftIcons">
+            <CiImageOn className="topReactIcons" />
+            <IoCameraOutline className="topReactIcons" />
+            <FaMicrophone className="topReactIcons" />
+          </div>
+          <input
+            type="text"
+            placeholder="Type your text here..."
+            onChange={(e) => {
+              setText(e.target.value);
+            }}
+            value={text}
+            onKeyDown={hadelEnter}
+          />
+          <div className="rightIcons">
+            <div className="emojieContainer">
+              <MdOutlineEmojiEmotions
+                className="topReactIcons emojieIcon"
+                onClick={() => {
+                  setToggleEmojie(!toggleEmojie);
+                }}
+              />
+              <div className="reactEmojieContainer">
+                {toggleEmojie && (
+                  <EmojiPicker
+                    className="emojieBox"
+                    onEmojiClick={(e) => handelEmojie(e)}
+                  />
+                )}
+              </div>
+            </div>
+            <IoMdSend className="topReactIcons" onClick={handelSendText} />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="blnkContainer">
+        <span>Find users and start conversation</span>
+      </div>
+    );
+  }
 }
 
 export default Chat;
