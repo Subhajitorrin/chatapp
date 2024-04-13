@@ -18,7 +18,7 @@ import {
 import { db } from "../Firebase/firebase";
 import { toast } from "react-toastify";
 
-function List({ user, setCurrentChatWith, setCurrentChatId,setToggleNewChat }) {
+function List({ user, setCurrentChatWith, setCurrentChatId}) {
   const [toggle, setToggle] = useState(true);
   const [findUser, setFindUser] = useState("");
   const [findUsersList, setFindUsersList] = useState([]);
@@ -143,7 +143,6 @@ function List({ user, setCurrentChatWith, setCurrentChatId,setToggleNewChat }) {
               setCurrentChatWith={setCurrentChatWith}
               chatId={item.chatId}
               setCurrentChatId={setCurrentChatId}
-              setToggleNewChat={setToggleNewChat}
             />
           );
         })}

@@ -7,7 +7,6 @@ import Details from "../Components/Details";
 function Home({ user, setUpdate }) {
   const [currentChatWith, setCurrentChatWith] = useState(null);
   const [currentChatId, setCurrentChatId] = useState(null);
-  const [toggleNewChat, setToggleNewChat] = useState(false);
   return (
     <div className="homeContainer">
       <ChatList
@@ -15,13 +14,11 @@ function Home({ user, setUpdate }) {
         setUpdate={setUpdate}
         setCurrentChatWith={setCurrentChatWith}
         setCurrentChatId={setCurrentChatId}
-        setToggleNewChat={setToggleNewChat}
       />
       <Chat
         currentChatWith={currentChatWith}
         currentChatId={currentChatId}
         user={user}
-        toggleNewChat={toggleNewChat}
       />
       <Details />
     </div>

@@ -3,7 +3,7 @@ import "./ChatList.css";
 import UserInfo from "./UserInfo";
 import List from "./List";
 
-function ChatList({ user, setUpdate, setCurrentChatWith, setCurrentChatId,setToggleNewChat }) {
+function ChatList({ user, setUpdate, setCurrentChatWith, setCurrentChatId}) {
   return (
     <div className="chatlistContainer">
       <UserInfo user={user} setUpdate={setUpdate} />
@@ -11,7 +11,6 @@ function ChatList({ user, setUpdate, setCurrentChatWith, setCurrentChatId,setTog
         user={user}
         setCurrentChatWith={setCurrentChatWith}
         setCurrentChatId={setCurrentChatId}
-        setToggleNewChat={setToggleNewChat}
       />
     </div>
   );
