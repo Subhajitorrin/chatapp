@@ -1,53 +1,53 @@
-.messageContainer{
-    display: flex;
-    gap: 15px;
+.messageContainer {
+  display: flex;
+  gap: 15px;
 }
-.messageContainerImg{
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    overflow: hidden;
+.messageContainerImg {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  overflow: hidden;
 }
-.messageContainerImg img{
-    height: 100%;
-    object-fit: cover;
+.messageContainerImg img {
+  height: 100%;
+  object-fit: cover;
 }
-.msgtexts{
-    max-width: 70%;
+.msgtexts {
+  max-width: 70%;
 }
-.msgtexts p{
-    background-color: rgba(23, 26, 40, .5);
-    padding: 10px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+.msgtexts p {
+  background-color: rgba(23, 26, 40, 0.5);
+  padding: 10px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
-.msgtexts span{
-    padding-left: 10px;
-    color: rgba(255, 255, 255, .3);
-    font-size: .9rem;
+.msgtexts span {
+  padding-left: 10px;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.9rem;
 }
-.own{
-    justify-content: end;
-    /* border: 1px solid white; */
+.own {
+  justify-content: end;
+  /* border: 1px solid white; */
 }
-.own span{
-    display: none;
+.own span {
+  display: none;
 }
-.own .messageContainerImg{
-    display: none;
+.own .messageContainerImg {
+  display: none;
 }
-.ultraContainer{
-    display: flex;
+.ultraContainer {
+  display: flex;
 }
-.own p{
-    background-color: rgba(	140	,43	,76,.5);
-    border-bottom-right-radius: 5px;
-    border-top-left-radius: 20px;
+.own p {
+  background-color: rgba(140, 43, 76, 0.5);
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 20px;
 }
-.pContainer{
-    max-width: 500px;
-    overflow-wrap: break-word;
-    overflow-x: hidden;
+.pContainer {
+  max-width: 500px;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
 }

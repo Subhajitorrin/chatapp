@@ -27,6 +27,8 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
   const [text, setText] = useState("");
   const [chatWithUser, setChatWithUser] = useState([]);
   const [chat, setChat] = useState([]);
+  const [isSeenOnChat, setIsSeenOnChat] = useState(false);
+  const [isLastTextMine, setIsLastTextMine] = useState(false);
   const chatCenterRef = useRef(null);
 
   function handelEmojie(e) {
@@ -54,7 +56,7 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
           messages: arrayUnion(msg),
         });
 
-        const bothUsers = [currentChatWith,user.id];
+        const bothUsers = [currentChatWith, user.id];
         bothUsers.forEach(async (id) => {
           const userChatsRef = doc(db, "userChats", id);
           const userChatsSnapshot = await getDoc(userChatsRef);
@@ -85,6 +87,24 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
   }
 
   useEffect(() => {
+    if (currentChatWith) {
+      const userChatsRef = doc(db, "userChats", currentChatWith);
+      onSnapshot(userChatsRef, (doc) => {
+        if (doc.exists()) {
+          const userData = doc.data();
+          if (userData && userData.chats) {
+            userData.chats.forEach((chat) => {
+              if (currentChatId && chat.chatId === currentChatId) {
+                setIsSeenOnChat(chat.isSeen);
+              }
+            });
+          }
+        }
+      });
+    }
+  }, [currentChatWith]);
+
+  useEffect(() => {
     if (currentChatId) {
       const chatRef = doc(db, "chats", currentChatId);
       const unsubscribe = onSnapshot(chatRef, (doc) => {
@@ -96,6 +116,13 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
               block: "end",
             });
           }, 100);
+          const arr = doc.data().messages;
+          const tempLastText = arr[arr.length - 1];
+          if (tempLastText.senderId === user.id) {
+            setIsLastTextMine(true);
+          } else {
+            setIsLastTextMine(false);
+          }
         } else {
           console.log("Chat document does not exist.");
         }
@@ -148,6 +175,7 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
               />
             );
           })}
+          {isLastTextMine && isSeenOnChat && <div className="seen">seen</div>}
           <div ref={chatCenterRef}></div>
         </div>
         <div className="chatBottom">

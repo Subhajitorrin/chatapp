@@ -1,109 +1,116 @@
-.chatContainer,.blnkContainer{
-    flex: 2;
-    border-left: 1px solid rgba(70,70,70,.7);
-    border-right: 1px solid rgba(70,70,70,.7);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+.chatContainer,
+.blnkContainer {
+  flex: 2;
+  border-left: 1px solid rgba(70, 70, 70, 0.7);
+  border-right: 1px solid rgba(70, 70, 70, 0.7);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-.blnkContainer{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255, 255, 255, .2);
-    font-size: 1.1rem;
+.blnkContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 1.1rem;
 }
-.chatTop{
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    border-bottom: 1px solid rgba(70,70,70,.7);
+.chatTop {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid rgba(70, 70, 70, 0.7);
 }
-.chatTop .userInfoImg{
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    overflow: hidden;
+.chatTop .userInfoImg {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  overflow: hidden;
 }
-.chatTop .userInfoImg img{
-    height: 100%;
-    object-fit: cover;
+.chatTop .userInfoImg img {
+  height: 100%;
+  object-fit: cover;
 }
-.topUserInfo{
-    display: flex;
-    gap: 15px;
-    align-items: center;
+.topUserInfo {
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }
-.userInfoText span{
-    font-weight: bold;
-    font-size: 1rem;
+.userInfoText span {
+  font-weight: bold;
+  font-size: 1rem;
 }
-.topUserInfo p{
-    font-size: .9rem;
+.topUserInfo p {
+  font-size: 0.9rem;
+}
+.topIcons {
+  display: flex;
+  gap: 1.3rem;
+  align-items: center;
+}
+.topReactIcons {
+  font-size: 1.3rem;
+  cursor: pointer;
+}
 
+.chatBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-top: 1px solid rgba(70, 70, 70, 0.7);
 }
-.topIcons{
-    display: flex;
-    gap: 1.3rem;
-    align-items: center;
+.chatBottom .leftIcons {
+  display: flex;
+  gap: 1rem;
 }
-.topReactIcons{
-    font-size: 1.3rem;
-    cursor: pointer;
+.chatBottom .rightIcons {
+  display: flex;
+  gap: 1rem;
 }
-
-.chatBottom{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    border-top: 1px solid rgba(70,70,70,.7);
+.chatBottom input {
+  flex: 1;
+  background-color: transparent;
+  padding-left: 20px;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 1rem;
 }
-.chatBottom .leftIcons{
-    display: flex;
-    gap: 1rem;
+.emojieContainer {
+  position: relative;
+  margin-left: 20px;
 }
-.chatBottom .rightIcons{
-    display: flex;
-    gap: 1rem;
+.reactEmojieContainer {
+  position: absolute;
+  bottom: 40px;
 }
-.chatBottom input{
-    flex: 1;
-    background-color: transparent;
-    padding-left: 20px;
-    border: none;
-    outline: none;
-    color: white;
-    font-size: 1rem;
-}
-.emojieContainer{
-    position: relative;
-    margin-left: 20px;
-}
-.reactEmojieContainer{
-    position: absolute;
-    bottom: 40px;
-}
-.chatCenter{
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.chatCenter {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 .chatCenter::-webkit-scrollbar {
-    width: 10px; /* Width of the scrollbar */
-  }
-  
-  .chatCenter::-webkit-scrollbar-track {
-    background: transparent; /* Color of the track */
-  }
-  
-  .chatCenter::-webkit-scrollbar-thumb {
-    background: rgba(17, 25, 40, 0.75); /* Color of the thumb */
-    border-radius: 5px; /* Roundness of the thumb */
-  }
-  .chatCenter::-webkit-scrollbar {
-    width: 5px; /* Adjusted width of the scrollbar */
-  }
+  width: 10px; /* Width of the scrollbar */
+}
+
+.chatCenter::-webkit-scrollbar-track {
+  background: transparent; /* Color of the track */
+}
+
+.chatCenter::-webkit-scrollbar-thumb {
+  background: rgba(17, 25, 40, 0.75); /* Color of the thumb */
+  border-radius: 5px; /* Roundness of the thumb */
+}
+.chatCenter::-webkit-scrollbar {
+  width: 5px; /* Adjusted width of the scrollbar */
+}
+.seen {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: end;
+  /* border: 1px solid white; */
+  margin-top: -20px;
+}
