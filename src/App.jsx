@@ -6,6 +6,7 @@ import Notification from "./Components/Notification";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Firebase/firebase";
 import getUserDetailsWithId from "./Firebase/getUserDetailsWithId";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -13,18 +14,18 @@ function App() {
   const [update, setUpdate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         getUserDetailsWithId(user.uid).then((res) => {
           setIsLogged(true);
           setUser(res);
-          setIsLoading(false)
+          setIsLoading(false);
           // console.log(res);
         });
       } else {
         setIsLogged(false);
-        setIsLoading(false)
+        setIsLoading(false);
       }
     });
     return () => unsub();
@@ -32,9 +33,12 @@ function App() {
   return (
     <div className="container">
       {isLoading ? (
-        <div className="loadingWrapper"><span>Loading...</span></div>
+        <div className="loadingWrapper">
+          <span>Loading...</span>
+        </div>
       ) : (
         <div className="wrapper">
+          <IoMdArrowRoundBack className="backBtn"/>
           {isLogged ? (
             <Home user={user} setUpdate={setUpdate} />
           ) : (

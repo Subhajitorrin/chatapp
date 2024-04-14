@@ -1,5 +1,22 @@
-.homeContainer{
-    color: white;
-    display: flex;
-    height: 100%;
+.homeContainer {
+  color: white;
+  display: flex;
+  height: 100%;
+}
+/* .homeContainer .mobileChat{
+  display: none;
+} */
+.homeContainer .mobileChatList {
+  width: 100%;
+}
+.homeContainer .mobileChat {
+  width: 0;
+  opacity: 0;
+}
+.homeContainer .mobileChatChatActive {
+  width: 100%;
+}
+.homeContainer .mobileChatListActive {
+  width: 0;
+  opacity: 0;
 }

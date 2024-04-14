@@ -152,7 +152,7 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
             </div>
             <div className="userInfoText">
               <span>{chatWithUser.username}</span>
-              <p>Lorem ipsum dolor sit amet.</p>
+              {/* <p>Lorem ipsum dolor sit amet.</p> */}
             </div>
           </div>
           <div className="topIcons">
@@ -182,7 +182,7 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
         <div className="chatBottom">
           <div className="leftIcons">
             <CiImageOn className="topReactIcons" />
-            <IoCameraOutline className="topReactIcons" />
+            <IoCameraOutline className="topReactIcons mobIcon" />
             <FaMicrophone className="topReactIcons" />
           </div>
           <input
@@ -195,7 +195,7 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
             onKeyDown={hadelEnter}
           />
           <div className="rightIcons">
-            <div className="emojieContainer">
+            <div className="emojieContainer mobIcon">
               <MdOutlineEmojiEmotions
                 className="topReactIcons emojieIcon"
                 onClick={() => {

@@ -38,3 +38,14 @@ input:-webkit-autofill {
   color: rgba(255, 255, 255, 0.3);
   font-size: 1.2rem;
 }
+@media screen and (max-width: 1000px) {
+  .wrapper,
+  .loadingWrapper{
+    height: 80%;
+    overflow: hidden;
+    position: relative;
+  }
+}
+.backBtn{
+  display: none;
+}

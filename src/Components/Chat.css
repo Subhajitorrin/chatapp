@@ -114,3 +114,13 @@
   /* border: 1px solid white; */
   margin-top: -20px;
 }
+@media screen and (max-width: 1000px) {
+  .chatContainer,
+  .blnkContainer {
+    width: 100%;
+    border-radius: 20px;
+  }
+  .mobIcon{
+    display: none;
+  }
+}
