@@ -46,3 +46,6 @@ input:-webkit-autofill {
     position: relative;
   }
 }
+.notify{
+  border: 1px solid white;
+}

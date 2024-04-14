@@ -16,6 +16,16 @@ function LoginRegister() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const avatarRef = useRef(null);
+  const [isMobileView, setIsMobileView] = useState(false);
+  const [isLoginPageMobile, SetIsLoginPageMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth < 1000);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   function handelAvatar(e) {
     const file = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
@@ -63,7 +73,7 @@ function LoginRegister() {
         // });
       } catch (err) {
         console.log(err);
-      }finally{
+      } finally {
         setIsLoading(false);
       }
     } else {
@@ -91,81 +101,174 @@ function LoginRegister() {
     }
   }
 
-  return (
-    <div className="login-register-container">
-      <div className="item">
-        <h2>Login Here</h2>
-        <form onSubmit={handelLogin}>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Enter your email"
-          />
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Enter your password"
-          />
-          <button
-            disabled={isLoading}
-            style={{ backgroundColor: `${isLoading ? "#b8778c" : "#AC335C"}` }}
-          >
-            {isLoading ? "Loading..." : "Sign in"}
-          </button>
-        </form>
+  if (isMobileView) {
+    return (
+      <div className="login-register-container">
+        {isLoginPageMobile ? (
+          <div className="item mobileView">
+            <h2>Login Here</h2>
+            <form onSubmit={handelLogin}>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter your email"
+              />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter your password"
+              />
+              <button
+                disabled={isLoading}
+                style={{
+                  backgroundColor: `${isLoading ? "#b8778c" : "#AC335C"}`,
+                }}
+              >
+                {isLoading ? "Loading..." : "Sign in"}
+              </button>
+              <p style={{ fontSize: ".9rem" }}>
+                Don't have an account ?{" "}
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => SetIsLoginPageMobile((prev) => !prev)}
+                >
+                  Register here
+                </span>
+              </p>
+            </form>
+          </div>
+        ) : (
+          <div className="item mobileView">
+            <h2>Create an account</h2>
+            <form onSubmit={handelRegister}>
+              <div className="uploadContainer">
+                <div className="imgContainerlogin">
+                  <img src={avatar.url || ""} ref={avatarRef} />
+                </div>
+                <label htmlFor="file">Upload an image</label>
+                <input
+                  type="file"
+                  name="file"
+                  id="file"
+                  style={{ display: "none" }}
+                  onChange={(e) => handelAvatar(e)}
+                />
+              </div>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                placeholder="Enter an unique username"
+              />
+              <input
+                type="email"
+                name="email"
+                id="registeremail"
+                placeholder="Enter your email"
+              />
+              <input
+                type="password"
+                name="registerpassword"
+                id="registerpassword"
+                placeholder="Enter your password"
+              />
+              <button
+                style={{
+                  backgroundColor: `${isLoading ? "#b8778c" : "#AC335C"}`,
+                }}
+              >
+                {isLoading ? "Loading..." : "Create an account"}
+              </button>
+              <p style={{ fontSize: ".9rem" }}>
+                Already have an account ?{" "}
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => SetIsLoginPageMobile((prev) => !prev)}
+                >
+                  Login here
+                </span>
+              </p>
+            </form>
+          </div>
+        )}
       </div>
-      <div className="seperator"></div>
-      <div className="item">
-        <h2>Create an account</h2>
-        <form onSubmit={handelRegister}>
-          <div className="uploadContainer">
-            <div className="imgContainerlogin">
-              <img
-                src={
-                  avatar.url ||
-                  ""
-                }
-                ref={avatarRef}
+    );
+  } else {
+    return (
+      <div className="login-register-container">
+        <div className="item">
+          <h2>Login Here</h2>
+          <form onSubmit={handelLogin}>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter your email"
+            />
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password"
+            />
+            <button
+              disabled={isLoading}
+              style={{
+                backgroundColor: `${isLoading ? "#b8778c" : "#AC335C"}`,
+              }}
+            >
+              {isLoading ? "Loading..." : "Sign in"}
+            </button>
+          </form>
+        </div>
+        <div className="seperator"></div>
+        <div className="item">
+          <h2>Create an account</h2>
+          <form onSubmit={handelRegister}>
+            <div className="uploadContainer">
+              <div className="imgContainerlogin">
+                <img src={avatar.url || ""} ref={avatarRef} />
+              </div>
+              <label htmlFor="file">Upload an image</label>
+              <input
+                type="file"
+                name="file"
+                id="file"
+                style={{ display: "none" }}
+                onChange={(e) => handelAvatar(e)}
               />
             </div>
-            <label htmlFor="file">Upload an image</label>
             <input
-              type="file"
-              name="file"
-              id="file"
-              style={{ display: "none" }}
-              onChange={(e) => handelAvatar(e)}
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Enter an unique username"
             />
-          </div>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            placeholder="Enter an unique username"
-          />
-          <input
-            type="email"
-            name="email"
-            id="registeremail"
-            placeholder="Enter your email"
-          />
-          <input
-            type="password"
-            name="registerpassword"
-            id="registerpassword"
-            placeholder="Enter your password"
-          />
-          <button
-            style={{ backgroundColor: `${isLoading ? "#b8778c" : "#AC335C"}` }}
-          >
-            {isLoading ? "Loading..." : "Create an account"}
-          </button>
-        </form>
+            <input
+              type="email"
+              name="email"
+              id="registeremail"
+              placeholder="Enter your email"
+            />
+            <input
+              type="password"
+              name="registerpassword"
+              id="registerpassword"
+              placeholder="Enter your password"
+            />
+            <button
+              style={{
+                backgroundColor: `${isLoading ? "#b8778c" : "#AC335C"}`,
+              }}
+            >
+              {isLoading ? "Loading..." : "Create an account"}
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
 export default LoginRegister;
