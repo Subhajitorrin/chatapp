@@ -6,7 +6,6 @@ import Notification from "./Components/Notification";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Firebase/firebase";
 import getUserDetailsWithId from "./Firebase/getUserDetailsWithId";
-import { IoMdArrowRoundBack } from "react-icons/io";
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -38,7 +37,6 @@ function App() {
         </div>
       ) : (
         <div className="wrapper">
-          <IoMdArrowRoundBack className="backBtn"/>
           {isLogged ? (
             <Home user={user} setUpdate={setUpdate} />
           ) : (

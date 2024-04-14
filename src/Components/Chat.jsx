@@ -22,7 +22,10 @@ import {
 import { db } from "../Firebase/firebase";
 import { Timestamp } from "firebase/firestore";
 
-function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { FaRegMessage } from "react-icons/fa6";
+
+function Chat({ currentChatWith, currentChatId, user, toggleNewChat,handelMobileBack }) {
   const [toggleEmojie, setToggleEmojie] = useState(false);
   const [text, setText] = useState("");
   const [chatWithUser, setChatWithUser] = useState([]);
@@ -30,6 +33,16 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
   const [isSeenOnChat, setIsSeenOnChat] = useState(false);
   const [isLastTextMine, setIsLastTextMine] = useState(false);
   const chatCenterRef = useRef(null);
+
+  const [isMobileView, setIsMobileView] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth < 1000);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   function handelEmojie(e) {
     // console.log(text);
@@ -44,7 +57,7 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
   }, [currentChatWith]);
 
   async function handelSendText() {
-    setIsSeenOnChat(false)
+    setIsSeenOnChat(false);
     if (text.trim() !== "") {
       setText("");
       const msg = {
@@ -147,6 +160,11 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
       <div className="chatContainer">
         <div className="chatTop">
           <div className="topUserInfo">
+            {isMobileView && (
+              <div className="upperUtility" onClick={handelMobileBack}>
+                <IoMdArrowRoundBack className="topReactIcons" />
+              </div>
+            )}
             <div className="userInfoImg">
               <img src={chatWithUser.avatarUrl} alt="" />
             </div>

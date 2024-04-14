@@ -18,6 +18,10 @@ function Home({ user, setUpdate }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  function handelMobileBack() {
+    setCurrentChatId(null);
+  }
+
   if (isMobileView) {
     return (
       <>
@@ -48,6 +52,7 @@ function Home({ user, setUpdate }) {
                 currentChatWith={currentChatWith}
                 currentChatId={currentChatId}
                 user={user}
+                handelMobileBack={handelMobileBack}
               />
             </div>
             <div className="mobileChatListActive">
