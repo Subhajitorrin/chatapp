@@ -21,7 +21,7 @@ function Home({ user, setUpdate }) {
         currentChatId={currentChatId}
         user={user}
       />
-      <Details />
+      {/* <Details /> */}
     </div>
   );
 }

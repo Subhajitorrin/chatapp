@@ -78,14 +78,16 @@ function ChatListCard({
 
   useEffect(() => {
     const unsubscribe = onSnapshot(doc(db, "chats", chatId), (doc) => {
-      const messages = doc.data().messages;
-      if (messages.length > 0) {
-        const lastMessage = messages[messages.length - 1];
-        const obj = {
-          lastSender: lastMessage.senderId,
-          lastText: lastMessage.text,
-        };
-        setLastMsg(obj);
+      if (doc.exists()) {
+        const messages = doc.data().messages;
+        if (messages.length > 0) {
+          const lastMessage = messages[messages.length - 1];
+          const obj = {
+            lastSender: lastMessage.senderId,
+            lastText: lastMessage.text,
+          };
+          setLastMsg(obj);
+        }
       }
     });
 
@@ -123,7 +125,7 @@ function ChatListCard({
       } else {
         if (!isSeen) {
           sideUserRef.current.classList.add("gulabi");
-        }else{
+        } else {
           sideUserRef.current.classList.remove("gulabi");
         }
       }
