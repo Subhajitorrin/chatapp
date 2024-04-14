@@ -23,6 +23,7 @@
 }
 .user h2{
     font-size: 1rem;
+    user-select: none;
 }   
 .userinfoContainer .icons{
     display: flex;
@@ -84,4 +85,27 @@
 }
 .updateActive{
   display: none;
+}
+.signoutContainer{
+  position: relative;
+}
+.signoutCatd{
+  border: 1px solid white;
+  width: 200px;
+  position: absolute;
+  padding: 20px;
+  right: 0;
+  top: 40px;
+  background-color: #141A28;
+  border-radius: 10px;
+}
+.signoutCatd button{
+  height: 35px;
+  border-radius: 10px;
+  width: 100%;
+  background-color: #A73058;
+  color: white;
+  border: none;
+  cursor: pointer;
+  user-select: none;
 }

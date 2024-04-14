@@ -44,6 +44,7 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
   }, [currentChatWith]);
 
   async function handelSendText() {
+    setIsSeenOnChat(false)
     if (text.trim() !== "") {
       setText("");
       const msg = {
@@ -118,7 +119,7 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat }) {
           }, 100);
           const arr = doc.data().messages;
           const tempLastText = arr[arr.length - 1];
-          if (tempLastText.senderId === user.id) {
+          if (tempLastText && tempLastText.senderId === user.id) {
             setIsLastTextMine(true);
           } else {
             setIsLastTextMine(false);

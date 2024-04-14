@@ -97,18 +97,22 @@ function ChatListCard({
   }, [chatId]);
 
   async function makeChatSeen() {
-    const userChatsRef = doc(db, "userChats", user.id);
-    const userChatsSnapshot = await getDoc(userChatsRef);
-    if (userChatsSnapshot.exists()) {
-      const userChatsData = userChatsSnapshot.data();
-      const chatIndex = userChatsData.chats.findIndex((ch) => {
-        return ch.chatId === chatId;
-      });
-      userChatsData.chats[chatIndex].isSeen = true;
-      userChatsData.chats[chatIndex].updatedAt = Date.now();
-      await updateDoc(userChatsRef, {
-        chats: userChatsData.chats,
-      });
+    try {
+      const userChatsRef = doc(db, "userChats", user.id);
+      const userChatsSnapshot = await getDoc(userChatsRef);
+      if (userChatsSnapshot.exists()) {
+        const userChatsData = userChatsSnapshot.data();
+        const chatIndex = userChatsData.chats.findIndex((ch) => {
+          return ch.chatId === chatId;
+        });
+        userChatsData.chats[chatIndex].isSeen = true;
+        userChatsData.chats[chatIndex].updatedAt = Date.now();
+        await updateDoc(userChatsRef, {
+          chats: userChatsData.chats,
+        });
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
   useEffect(() => {

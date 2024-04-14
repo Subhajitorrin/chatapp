@@ -9,6 +9,9 @@ import { toast } from "react-toastify";
 import { doc, updateDoc } from "firebase/firestore";
 import uploadImageToFirebaseAndGetURL from "../Firebase/uploadImage";
 import { db } from "../Firebase/firebase";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { signOut } from "firebase/auth";
+import { auth } from "../Firebase/firebase";
 
 function UserInfo({ user, setUpdate }) {
   const [avatar, setAvatar] = useState({
@@ -18,6 +21,8 @@ function UserInfo({ user, setUpdate }) {
   const [text, setText] = useState("");
   const updateRef = useRef(null);
   const avatarRef = useRef(null);
+  const signoutContRef = useRef(null);
+  const [signOutBtnToggle, setSignOutBtnToggle] = useState(false);
   function handelEditBtn() {
     if (updateRef.current.classList.contains("updateActive")) {
       updateRef.current.classList.remove("updateActive");
@@ -66,6 +71,19 @@ function UserInfo({ user, setUpdate }) {
     }
   }
 
+  function handelSignoutBtn() {
+    if (signoutContRef.current.classList.contains("updateActive")) {
+      signoutContRef.current.classList.remove("updateActive");
+    } else {
+      signoutContRef.current.classList.add("updateActive");
+    }
+  }
+
+  function handelSignout() {
+    signOut(auth).then(() => {
+      toast.success("Sign out succesful");
+    });
+  }
   return (
     <div className="userinfoContainer">
       <div className="user">
@@ -84,8 +102,17 @@ function UserInfo({ user, setUpdate }) {
         <h2>{user ? user.username : <Skeleton width={170} height={5} />}</h2>
       </div>
       <div className="icons">
-        <IoIosVideocam className="reactIcons" />
-        <IoIosCall className="reactIcons" />
+        <div className="signoutContainer">
+          <div className="signoutsemicont">
+            <HiOutlineDotsHorizontal
+              className="reactIcons"
+              onClick={handelSignoutBtn}
+            />
+          </div>
+          <div className="signoutCatd updateActive" ref={signoutContRef}>
+            <button onClick={handelSignout}>Sign out</button>
+          </div>
+        </div>
         <div className="editContainer">
           <FaRegEdit className="reactIcons" onClick={handelEditBtn} />
           <div className="editProfileContainer updateActive" ref={updateRef}>
