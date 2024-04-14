@@ -20,6 +20,10 @@ function ChatListCard({
   setCurrentChatId,
   user,
   currentChatId,
+  lastTextSender,
+  avatarLink,
+  username,
+  lastMessage,
 }) {
   const [reUser, setReUser] = useState([]);
   const [lsatMsg, setLastMsg] = useState({
@@ -28,11 +32,11 @@ function ChatListCard({
   });
   const crossRef = useRef(null);
   const sideUserRef = useRef(null);
-  useEffect(() => {
-    getUserDetailsWithId(receiverId).then((res) => {
-      setReUser(res);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getUserDetailsWithId(receiverId).then((res) => {
+  //     setReUser(res);
+  //   });
+  // }, []);
   async function handelChat() {
     setCurrentChatWith(receiverId);
     setCurrentChatId(chatId);
@@ -45,7 +49,7 @@ function ChatListCard({
         return ch.chatId === chatId;
       });
       userChatsData.chats[chatIndex].isSeen = true;
-      userChatsData.chats[chatIndex].updatedAt = Date.now();
+      // userChatsData.chats[chatIndex].updatedAt = Date.now();
       await updateDoc(userChatsRef, {
         chats: userChatsData.chats,
       });
@@ -76,25 +80,25 @@ function ChatListCard({
     }
   }
 
-  useEffect(() => {
-    const unsubscribe = onSnapshot(doc(db, "chats", chatId), (doc) => {
-      if (doc.exists()) {
-        const messages = doc.data().messages;
-        if (messages.length > 0) {
-          const lastMessage = messages[messages.length - 1];
-          const obj = {
-            lastSender: lastMessage.senderId,
-            lastText: lastMessage.text,
-          };
-          setLastMsg(obj);
-        }
-      }
-    });
+  // useEffect(() => {
+  //   const unsubscribe = onSnapshot(doc(db, "chats", chatId), (doc) => {
+  //     if (doc.exists()) {
+  //       const messages = doc.data().messages;
+  //       if (messages.length > 0) {
+  //         const lastMessage = messages[messages.length - 1];
+  //         const obj = {
+  //           lastSender: lastMessage.senderId,
+  //           lastText: lastMessage.text,
+  //         };
+  //         setLastMsg(obj);
+  //       }
+  //     }
+  //   });
 
-    return () => {
-      unsubscribe();
-    };
-  }, [chatId]);
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [chatId]);
 
   async function makeChatSeen() {
     try {
@@ -144,19 +148,30 @@ function ChatListCard({
     >
       <div className="chatListImageNusernameContainer">
         <div className="itemImgContainer">
-          <img src={reUser.avatarUrl} alt="" />
+          <img src={avatarLink} alt="" />
         </div>
         <div className="text">
           <div className="username">
-            <p>{reUser.username}</p>
+            <p>{username}</p>
           </div>
-          {lsatMsg.lastSender != "" ? (
+          {/* {lsatMsg.lastSender != "" ? (
             lsatMsg.lastSender === user.id ? (
               <p className="lasttext">
                 <span className="you">You: </span> {lsatMsg.lastText}
               </p>
             ) : (
               <p className="lasttext">{lsatMsg.lastText}</p>
+            )
+          ) : (
+            <span></span>
+          )} */}
+          {lastMessage != "" ? (
+            lastTextSender === user.id ? (
+              <p className="lasttext">
+                <span className="you">You: </span> {lastMessage}
+              </p>
+            ) : (
+              <p className="lasttext">{lastMessage}</p>
             )
           ) : (
             <span></span>

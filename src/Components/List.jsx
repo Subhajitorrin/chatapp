@@ -17,8 +17,9 @@ import {
 } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
 import { toast } from "react-toastify";
+import getUserDetailsWithId from "../Firebase/getUserDetailsWithId";
 
-function List({ user, setCurrentChatWith, setCurrentChatId,currentChatId }) {
+function List({ user, setCurrentChatWith, setCurrentChatId, currentChatId }) {
   const [toggle, setToggle] = useState(true);
   const [findUser, setFindUser] = useState("");
   const [findUsersList, setFindUsersList] = useState([]);
@@ -57,9 +58,21 @@ function List({ user, setCurrentChatWith, setCurrentChatId,currentChatId }) {
   }
 
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, "userChats", user.id), (doc) => {
-      // console.log(doc.data());
-      setSideChatList(doc.data().chats);
+    const unsub = onSnapshot(doc(db, "userChats", user.id), async (doc) => {
+      const arr = doc.data().chats;
+      arr.sort((a, b) => b.updatedAt - a.updatedAt);
+      // Create an array to store all promises
+      const promises = arr.map(async (item) => {
+        const res = await getUserDetailsWithId(item.receiverId);
+        return {
+          ...item,
+          receiverDetails: res,
+        };
+      });
+      // Wait for all promises to resolve
+      const updatedlist = await Promise.all(promises);
+      // Once all promises are resolved, update the state
+      setSideChatList(updatedlist);
     });
     return () => {
       unsub();
@@ -134,17 +147,21 @@ function List({ user, setCurrentChatWith, setCurrentChatId,currentChatId }) {
       <div className="listofusers">
         {/* <ChatListCard /> */}
         {sideChatList.map((item, index) => {
+          console.log(item);
           return (
             <ChatListCard
               key={index}
               receiverId={item.receiverId}
-              lastMessage={item.lastMessage}
+              lastMessage={item.lastText}
               setCurrentChatWith={setCurrentChatWith}
               chatId={item.chatId}
               isSeen={item.isSeen ? item.isSeen : ""}
               setCurrentChatId={setCurrentChatId}
               user={user}
               currentChatId={currentChatId}
+              lastTextSender={item.lastTextSender}
+              avatarLink={item.receiverDetails.avatarUrl}
+              username={item.receiverDetails.username}
             />
           );
         })}

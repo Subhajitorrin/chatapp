@@ -25,7 +25,13 @@ import { Timestamp } from "firebase/firestore";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { FaRegMessage } from "react-icons/fa6";
 
-function Chat({ currentChatWith, currentChatId, user, toggleNewChat,handelMobileBack }) {
+function Chat({
+  currentChatWith,
+  currentChatId,
+  user,
+  toggleNewChat,
+  handelMobileBack,
+}) {
   const [toggleEmojie, setToggleEmojie] = useState(false);
   const [text, setText] = useState("");
   const [chatWithUser, setChatWithUser] = useState([]);
@@ -82,6 +88,8 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat,handelMobile
             userChatsData.chats[chatIndex].isSeen =
               id === user.id ? true : false;
             userChatsData.chats[chatIndex].updatedAt = Date.now();
+            userChatsData.chats[chatIndex].lastText = text;
+            userChatsData.chats[chatIndex].lastTextSender = user.id;
             await updateDoc(userChatsRef, {
               chats: userChatsData.chats,
             });
@@ -124,12 +132,14 @@ function Chat({ currentChatWith, currentChatId, user, toggleNewChat,handelMobile
       const unsubscribe = onSnapshot(chatRef, (doc) => {
         if (doc.exists()) {
           setChat(doc.data().messages);
-          setTimeout(() => {
-            chatCenterRef.current.scrollIntoView({
-              behavior: "smooth",
-              block: "end",
-            });
-          }, 100);
+          if (chatCenterRef) {
+            setTimeout(() => {
+              chatCenterRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "end",
+              });
+            }, 100);
+          }
           const arr = doc.data().messages;
           const tempLastText = arr[arr.length - 1];
           if (tempLastText && tempLastText.senderId === user.id) {
