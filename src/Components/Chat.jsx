@@ -31,6 +31,8 @@ function Chat({
   user,
   toggleNewChat,
   handelMobileBack,
+  setCurrentChatWith,
+  setCurrentChatId
 }) {
   const [toggleEmojie, setToggleEmojie] = useState(false);
   const [text, setText] = useState("");
@@ -149,6 +151,8 @@ function Chat({
           }
         } else {
           console.log("Chat document does not exist.");
+          setCurrentChatId(null);
+          setCurrentChatWith(null)
         }
       });
 

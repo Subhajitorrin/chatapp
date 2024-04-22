@@ -55,8 +55,13 @@ function ChatListCard({
       });
     }
   }
-  async function handelRemoveChatList() {
+  async function handelRemoveChatList(e) {
     // console.log(crossRef.current);
+    e.stopPropagation();
+    if (currentChatId == chatId) {
+      setCurrentChatId(null);
+      setCurrentChatWith(null);
+    }
     try {
       const docRef = doc(db, "chats", chatId);
       const docSnap = await getDoc(docRef);
@@ -178,8 +183,12 @@ function ChatListCard({
           )}
         </div>
       </div>
-      <div ref={crossRef} className="crossContainer">
-        <IoRemoveCircle className="crossIcon" onClick={handelRemoveChatList} />
+      <div className="crossContainer">
+        <IoRemoveCircle
+          className="crossIcon"
+          onClick={handelRemoveChatList}
+          ref={crossRef}
+        />
       </div>
     </div>
   );
