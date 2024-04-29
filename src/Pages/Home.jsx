@@ -40,6 +40,8 @@ function Home({ user, setUpdate }) {
               <Chat
                 currentChatWith={currentChatWith}
                 currentChatId={currentChatId}
+                setCurrentChatWith={setCurrentChatWith}
+                setCurrentChatId={setCurrentChatId}
                 user={user}
               />
             </div>
@@ -51,6 +53,8 @@ function Home({ user, setUpdate }) {
               <Chat
                 currentChatWith={currentChatWith}
                 currentChatId={currentChatId}
+                setCurrentChatWith={setCurrentChatWith}
+                setCurrentChatId={setCurrentChatId}
                 user={user}
                 handelMobileBack={handelMobileBack}
               />
@@ -81,6 +85,8 @@ function Home({ user, setUpdate }) {
         <Chat
           currentChatWith={currentChatWith}
           currentChatId={currentChatId}
+          setCurrentChatId={setCurrentChatId}
+          setCurrentChatWith={setCurrentChatWith}
           user={user}
         />
         {/* <Details /> */}

@@ -147,7 +147,7 @@ function List({ user, setCurrentChatWith, setCurrentChatId, currentChatId }) {
       <div className="listofusers">
         {/* <ChatListCard /> */}
         {sideChatList.map((item, index) => {
-          console.log(item);
+          // console.log(item);
           return (
             <ChatListCard
               key={index}
